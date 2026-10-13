@@ -20,11 +20,7 @@ plugins {
 }
 
 group = "liric.mistaken" // Actualizado a tu nuevo package
-version = "2.0.7"
-// changed the version forwards cause its confusing me
-// when i test a build on my server manually.
-// The 5th version will come back when i finish all the tests
-
+version = "2.0.5"
 
 java {
     toolchain {
