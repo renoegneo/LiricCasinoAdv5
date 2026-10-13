@@ -13,13 +13,13 @@ commands:
     usage: /casino [game|stats|top|reload]
   roulette:
     description: Roulette command
-    aliases: [ruleta]
+    aliases: [roulette]
   scratch:
     description: Scratch-card command
-    aliases: [boleto]
+    aliases: [ticket]
   slots:
     description: Slots command
-    aliases: [tragamonedas, '777']
+    aliases: [slots, '777']
   poker:
     description: Poker command
   blackjack:
@@ -27,7 +27,7 @@ commands:
     aliases: [bj, '21']
   lottery:
     description: Lottery command
-    aliases: [loteria]
+    aliases: [lottery]
   coinflip:
     description: CoinFlip command
   cf:
@@ -39,7 +39,7 @@ commands:
     aliases: [tictactoe]
   racing:
     description: Horse-racing command
-    aliases: [carreras]
+    aliases: [races]
 
 permissions:
   casino.admin:
