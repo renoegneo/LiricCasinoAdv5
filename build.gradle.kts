@@ -15,7 +15,7 @@ buildscript {
 plugins {
     java
     kotlin("jvm") version "2.3.20"
-    id("com.github.johnrengelman.shadow") version "9.6.1"
+    id("com.gradleup.shadow") version "9.6.1"
     id("maven-publish")
 }
 
@@ -63,7 +63,10 @@ dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:3.4.1")
 
     // Paper ya incluye Adventure y MiniMessage nativamente
-    compileOnly("net.kyori:adventure-text-minimessage:4.17.0")
+
+//    compileOnly("net.kyori:adventure-text-minimessage:4.17.0"
+//    paper already gives minimassege built-in
+
     compileOnly("org.jetbrains:annotations:24.0.1")
 }
 
