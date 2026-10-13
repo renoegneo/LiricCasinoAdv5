@@ -1,8 +1,8 @@
-# CasinoLiric — Main Configuration
-# Economy settings are in economy.yml. Prize tables are in prizes.yml.
+# CasinoLiric — основные настройки
+# Настройки экономики находятся в economy.yml, таблицы призов — в prizes.yml.
 
 database:
-  type: "sqlite" # sqlite or mariadb
+  type: "sqlite" # sqlite или mariadb
   host: "localhost"
   port: 3306
   database: "casino"

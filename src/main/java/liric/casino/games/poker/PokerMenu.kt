@@ -12,7 +12,7 @@ class PokerMenu(private val plugin: CasinoPlugin, private val game: PokerGame, p
 
     private val config = plugin.menuConfig("poker")
     private val gui = Gui.gui()
-        .title(plugin.format(config.getString("title", "<#FF0000><bold>♠ TEXAS HOLD'EM ♠</bold></#FF0000>")!!))
+        .title(plugin.format(config.getString("title", "<#FF0000><bold>♠ ТЕХАССКИЙ ХОЛДЕМ ♠</bold></#FF0000>")!!))
         .rows(6)
         .disableAllInteractions().disableItemTake().disableItemSwap().disableItemDrop().disableItemPlace()
         .create()
@@ -37,8 +37,8 @@ class PokerMenu(private val plugin: CasinoPlugin, private val game: PokerGame, p
 
         game.players.forEachIndexed { index, p ->
             if (p.uuid != player.uniqueId) {
-                val status = if (p.hasFolded) "<#FF5555>Folded" else "<#00FF7F>Bet: $${p.currentBet}"
-                val turnMark = if (game.getCurrentPlayer()?.uuid == p.uuid) "<#FFB400>▶ THEIR TURN ◀" else ""
+                val status = if (p.hasFolded) "<#FF5555>Сбросил карты" else "<#00FF7F>Ставка: $${p.currentBet}"
+                val turnMark = if (game.getCurrentPlayer()?.uuid == p.uuid) "<#FFB400>▶ ЕГО ХОД ◀" else ""
 
                 val headMat = config.getMaterial("items.player-head.material", Material.PLAYER_HEAD)
                 val headName = config.getString("items.player-head.name", "<#E0E0E0><bold>{name}</bold></#E0E0E0>").replace("{name}", p.name)
@@ -68,14 +68,23 @@ class PokerMenu(private val plugin: CasinoPlugin, private val game: PokerGame, p
 
 
         val potMat = config.getMaterial("items.pot.material", Material.GOLD_BLOCK)
-        val potName = config.getString("items.pot.name", "<#FFD700><bold>TOTAL POT: {pot}</bold></#FFD700>").replace("{pot}", game.pot.toString())
-        val potLore = config.getStringList("items.pot.lore").map { plugin.format(it.replace("{state}", game.state.name)) }
+        val potName = config.getString("items.pot.name", "<#FFD700><bold>ОБЩИЙ БАНК: {pot}</bold></#FFD700>").replace("{pot}", game.pot.toString())
+        val stateLabel = when (game.state) {
+            PokerState.WAITING -> "Ожидание игроков"
+            PokerState.STARTING -> "Начало игры"
+            PokerState.PRE_FLOP -> "Префлоп"
+            PokerState.FLOP -> "Флоп"
+            PokerState.TURN -> "Тёрн"
+            PokerState.RIVER -> "Ривер"
+            PokerState.SHOWDOWN -> "Вскрытие карт"
+        }
+        val potLore = config.getStringList("items.pot.lore").map { plugin.format(it.replace("{state}", stateLabel)) }
         
         val potInfo = ItemBuilder.from(potMat).name(plugin.format(potName))
         if (potLore.isNotEmpty()) {
             potInfo.lore(potLore)
         } else {
-            potInfo.lore(plugin.format("<#E0E0E0>State: ${game.state.name}</#E0E0E0>"))
+            potInfo.lore(plugin.format("<#E0E0E0>Состояние: $stateLabel</#E0E0E0>"))
         }
         gui.setItem(4, potInfo.asGuiItem())
 
@@ -92,7 +101,7 @@ class PokerMenu(private val plugin: CasinoPlugin, private val game: PokerGame, p
 
         if (isMyTurn) {
             val timeMat = config.getMaterial("items.time.material", Material.CLOCK)
-            val timeName = config.getString("items.time.name", "<#FFB400>Time: {time}s</#FFB400>").replace("{time}", game.countdownSeconds.toString())
+            val timeName = config.getString("items.time.name", "<#FFB400>Время: {time} с</#FFB400>").replace("{time}", game.countdownSeconds.toString())
             val timeItem = ItemBuilder.from(timeMat).name(plugin.format(timeName)).asGuiItem()
             gui.setItem(40, timeItem)
 
@@ -105,7 +114,7 @@ class PokerMenu(private val plugin: CasinoPlugin, private val game: PokerGame, p
 
 
             val callAmount = game.currentHighestBet - me.currentBet
-            val callText = if (callAmount == 0.0) "CHECK" else "CALL ($$callAmount)"
+            val callText = if (callAmount == 0.0) "ПРОПУСТИТЬ" else "УРАВНЯТЬ ($$callAmount)"
             val callMat = config.getMaterial("items.call.material", Material.YELLOW_DYE)
             val callName = config.getString("items.call.name", "<#FFD700><bold>{text}</bold>").replace("{text}", callText)
             val callBtn = ItemBuilder.from(callMat).name(plugin.format(callName)).asGuiItem {
@@ -115,7 +124,7 @@ class PokerMenu(private val plugin: CasinoPlugin, private val game: PokerGame, p
             gui.setItem(49, callBtn)
 
 
-            val raiseName = config.getString("items.raise.name", "<#00FF7F><bold>RAISE +{amount}</bold>")
+            val raiseName = config.getString("items.raise.name", "<#00FF7F><bold>ПОВЫСИТЬ +{amount}</bold>")
                 .replace("{amount}", game.raiseAmount.toLong().toString())
             val raiseLore = config.getStringList("items.raise.lore").map {
                 plugin.format(it.replace("{amount}", game.raiseAmount.toLong().toString()))

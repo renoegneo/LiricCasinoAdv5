@@ -53,7 +53,7 @@ class MatchmakingLobbyGUI(
         } else {
             games.take(gameSlots.size).forEachIndexed { index, session ->
                 val own = session.creatorId == viewer.uniqueId
-                val action = config.getString(if (own) "game-item.cancel" else "game-item.join", "<green>Click")
+                val action = config.getString(if (own) "game-item.cancel" else "game-item.join", "<green>Нажмите")
                 val name = config.getString("game-item.name", "<white>%creator%").replace("%creator%", session.creatorName)
                 val lore = config.getStringList("game-item.lore").map {
                     plugin.format(it.replace("%amount%", money(session.betAmount)).replace("%action%", action))

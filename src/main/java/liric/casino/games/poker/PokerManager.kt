@@ -55,28 +55,35 @@ class PokerManager(private val plugin: CasinoPlugin) {
 
     fun updateHolograms() {
         val game = plugin.pokerGame
-
-
+        val phaseName = when (game.state) {
+            PokerState.WAITING -> "Ожидание"
+            PokerState.STARTING -> "Подготовка"
+            PokerState.PRE_FLOP -> "Префлоп"
+            PokerState.FLOP -> "Флоп"
+            PokerState.TURN -> "Тёрн"
+            PokerState.RIVER -> "Ривер"
+            PokerState.SHOWDOWN -> "Вскрытие"
+        }
 
         val text = when (game.state) {
             PokerState.WAITING -> """
-                <#FF0000><bold>♠ POKER TABLE ♠</bold></#FF0000>
-                <#E0E0E0>Right Click to join</#E0E0E0>
-                <#00FF7F>Players: ${game.players.size}/${game.maxPlayers}</#00FF7F>
-                <#FFB400>Entry: $${game.entryFee}</#FFB400>
+                <#FF0000><bold>♠ СТОЛ ПОКЕРА ♠</bold></#FF0000>
+                <#E0E0E0>Нажмите ПКМ, чтобы присоединиться</#E0E0E0>
+                <#00FF7F>Игроки: ${game.players.size}/${game.maxPlayers}</#00FF7F>
+                <#FFB400>Вход: $${game.entryFee}</#FFB400>
             """.trimIndent().replace("\n", "<br>")
 
             PokerState.STARTING -> """
-                <#FF0000><bold>♠ POKER TABLE ♠</bold></#FF0000>
-                <#E0E0E0>Starting in <#FFB400>${game.countdownSeconds}s</#FFB400></#E0E0E0>
-                <#00FF7F>Players: ${game.players.size}/${game.maxPlayers}</#00FF7F>
+                <#FF0000><bold>♠ СТОЛ ПОКЕРА ♠</bold></#FF0000>
+                <#E0E0E0>Начало через <#FFB400>${game.countdownSeconds} с</#FFB400></#E0E0E0>
+                <#00FF7F>Игроки: ${game.players.size}/${game.maxPlayers}</#00FF7F>
             """.trimIndent().replace("\n", "<br>")
 
             else -> """
-                <#FF0000><bold>♠ POKER TABLE ♠</bold></#FF0000>
-                <#FF5555>Phase: ${game.state.name}</#FF5555>
-                <#00FF7F>Playing: ${game.players.size}</#00FF7F>
-                <#FFD700>Total Pot: $${game.pot}</#FFD700>
+                <#FF0000><bold>♠ СТОЛ ПОКЕРА ♠</bold></#FF0000>
+                <#FF5555>Этап: $phaseName</#FF5555>
+                <#00FF7F>Играют: ${game.players.size}</#00FF7F>
+                <#FFD700>Общий банк: $${game.pot}</#FFD700>
             """.trimIndent().replace("\n", "<br>")
         }
 

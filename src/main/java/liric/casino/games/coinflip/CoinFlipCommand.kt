@@ -6,7 +6,7 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class CoinFlipCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin, "coinflip", "COINFLIP") {
+class CoinFlipCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin, "coinflip", "ОРЁЛ ИЛИ РЕШКА") {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (sender !is Player) { sender.sendMessage(msg("general.only-players")); return true }
@@ -21,7 +21,7 @@ class CoinFlipCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin,
                 sender.sendMessage(msg("general.no-permission")); return true
             }
             plugin.reloadAllConfigurations()
-            sender.sendMessage(plugin.format("<#00FF7F>CoinFlip — configuration reloaded."))
+            sender.sendMessage(plugin.format("<#00FF7F>Настройки игры «Орёл или решка» перезагружены."))
             return true
         }
         
@@ -53,15 +53,15 @@ class CoinFlipCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin,
     override fun sendHelp(player: Player) {
         val isAdmin = player.hasPermission("casino.admin")
         player.sendMessage(plugin.format("<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"))
-        player.sendMessage(plugin.format(" <#FFD700>🪙 <gold><bold>COINFLIP — Commands</bold>"))
+        player.sendMessage(plugin.format(" <#FFD700>🪙 <gold><bold>ОРЁЛ ИЛИ РЕШКА — Команды</bold>"))
         player.sendMessage(plugin.format("<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"))
-        player.sendMessage(plugin.format(" <#FFB400>/cf menu <dark_gray>— <gray>View active games"))
-        player.sendMessage(plugin.format(" <#FFB400>/cf create <amount> <dark_gray>— <gray>Create a game"))
-        player.sendMessage(plugin.format(" <#FFB400>/cf join <player> <dark_gray>— <gray>Join a game"))
-        player.sendMessage(plugin.format(" <#FFB400>/cf cancel <dark_gray>— <gray>Cancel your game"))
+        player.sendMessage(plugin.format(" <#FFB400>/cf menu <dark_gray>— <gray>Посмотреть открытые игры"))
+        player.sendMessage(plugin.format(" <#FFB400>/cf create <сумма> <dark_gray>— <gray>Создать игру"))
+        player.sendMessage(plugin.format(" <#FFB400>/cf join <игрок> <dark_gray>— <gray>Присоединиться к игре"))
+        player.sendMessage(plugin.format(" <#FFB400>/cf cancel <dark_gray>— <gray>Отменить свою игру"))
         if (isAdmin) {
             player.sendMessage(plugin.format("<dark_gray>─────────────────────────────────────────────"))
-            player.sendMessage(plugin.format(" <red>/cf reload <dark_gray>— <gray>Reload configuration"))
+            player.sendMessage(plugin.format(" <red>/cf reload <dark_gray>— <gray>Перезагрузить настройки"))
         }
         player.sendMessage(plugin.format("<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"))
     }

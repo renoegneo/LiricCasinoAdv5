@@ -23,13 +23,13 @@ data class BjCard(val rank: BjRank, val suit: BjSuit) {
     fun toItemStack(plugin: CasinoPlugin, hidden: Boolean = false): ItemStack {
         if (hidden) {
             return ItemBuilder.from(Material.MAP)
-                .name(plugin.format("<#FFB400><bold>🂠 CARTA OCULTA</bold>"))
-                .lore(plugin.format("<gray>The dealer will reveal this card"), plugin.format("<gray>when their turn begins."))
+                .name(plugin.format("<#FFB400><bold>🂠 ЗАКРЫТАЯ КАРТА</bold>"))
+                .lore(plugin.format("<gray>Дилер откроет эту карту"), plugin.format("<gray>в начале своего хода."))
                 .flags(*ItemFlag.values()).build()
         }
         return ItemBuilder.from(Material.PAPER)
             .name(plugin.format("${suit.color}<bold>${rank.display} ${suit.symbol}</bold>"))
-            .lore(plugin.format("<gray>Valor: <white>${if (rank == BjRank.ACE) "1 u 11" else rank.value}"))
+            .lore(plugin.format("<gray>Очки: <white>${if (rank == BjRank.ACE) "1 или 11" else rank.value}"))
             .flags(*ItemFlag.values()).build()
     }
 }

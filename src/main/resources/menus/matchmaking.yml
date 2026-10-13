@@ -1,44 +1,44 @@
-title: "<gold><bold>Game Lobby</bold>"
+title: "<gold><bold>Игровое лобби</bold>"
 rows: 6
 
 rps:
-  title: "<#FF5555><bold>Rock Paper Scissors</bold> <dark_gray>— <white>Lobby"
+  title: "<#FF5555><bold>Камень, ножницы, бумага</bold> <dark_gray>— <white>Лобби"
 ttt:
-  title: "<#00FFFF><bold>Tic Tac Toe</bold> <dark_gray>— <white>Lobby"
+  title: "<#00FFFF><bold>Крестики-нолики</bold> <dark_gray>— <white>Лобби"
 
 bet-amounts: [100, 500, 1000, 5000, 10000]
 bet-slots: [2, 3, 4, 5, 6]
 create-item:
   material: EMERALD
-  name: "<#00FF7F><bold>Create: %amount%</bold>"
+  name: "<#00FF7F><bold>Создать: %amount%</bold>"
   lore:
-    - "<gray>Start a new match at this stake."
+    - "<gray>Начать новый матч с этой ставкой."
     - ""
-    - "<yellow>Click to create."
+    - "<yellow>Нажмите, чтобы создать."
 
 game-slots: [10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 29, 30, 32, 33, 34]
 game-item:
-  name: "<white><bold>%creator%'s match</bold>"
+  name: "<white><bold>Матч игрока %creator%</bold>"
   lore:
-    - "<gray>Stake: <#FFD700>%amount%"
+    - "<gray>Ставка: <#FFD700>%amount%"
     - ""
     - "%action%"
-  join: "<#00FF7F>✔ Click to join"
-  cancel: "<#FF5555>✖ Click to cancel your match"
+  join: "<#00FF7F>✔ Нажмите, чтобы присоединиться"
+  cancel: "<#FF5555>✖ Нажмите, чтобы отменить матч"
 
 no-games:
   slot: 31
   material: BELL
-  name: "<#FF5555><bold>No open matches</bold>"
+  name: "<#FF5555><bold>Нет открытых матчей</bold>"
   lore:
-    - "<gray>Create one using a button above."
+    - "<gray>Создайте матч кнопкой выше."
 
 refresh:
   slot: 49
   material: COMPASS
-  name: "<white><bold>↻ Refresh</bold>"
+  name: "<white><bold>↻ Обновить</bold>"
   lore:
-    - "<gray>Reload the match list."
+    - "<gray>Обновить список матчей."
 
 decorations:
   - material: BLACK_STAINED_GLASS_PANE

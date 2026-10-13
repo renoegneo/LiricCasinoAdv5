@@ -24,7 +24,7 @@ class CoinFlipGUI(plugin: CasinoPlugin, val viewer: Player) : BaseMenu(plugin, "
     override fun setupItems(gui: Gui) {
         val createMat = config.getMaterial("create-btn.material", Material.NETHER_STAR)
         val createBtn = ItemBuilder.from(createMat)
-            .name(config.getComponent("create-btn.name", "<#00FF7F><bold>✚ Create Game</bold>"))
+            .name(config.getComponent("create-btn.name", "<#00FF7F><bold>✚ Создать игру</bold>"))
             .lore(config.getComponentList("create-btn.lore"))
             .flags(*ItemFlag.values())
             .asGuiItem {
@@ -32,17 +32,17 @@ class CoinFlipGUI(plugin: CasinoPlugin, val viewer: Player) : BaseMenu(plugin, "
                 viewer.playSound(viewer.location, Sound.UI_BUTTON_CLICK, 1f, 1.2f)
                 plugin.coinFlipManager.setPendingChat(viewer.uniqueId)
                 viewer.sendMessage(plugin.messages.get("general.command-separator"))
-                viewer.sendMessage(plugin.format(" <#FFD700>🪙 <white>Type your bet amount in chat."))
-                viewer.sendMessage(plugin.format(" <gray>Examples: <white>1000 <gray>· <white>5k <gray>· <white>1.5m <gray>· <white>10b"))
-                viewer.sendMessage(plugin.format(" <gray>Type <red>cancel</red> to abort."))
+                viewer.sendMessage(plugin.format(" <#FFD700>🪙 <white>Введите сумму ставки в чат."))
+                viewer.sendMessage(plugin.format(" <gray>Примеры: <white>1000 <gray>· <white>5k <gray>· <white>1.5m <gray>· <white>10b"))
+                viewer.sendMessage(plugin.format(" <gray>Введите <red>cancel</red>, чтобы отменить."))
                 viewer.sendMessage(plugin.messages.get("general.command-separator"))
-                viewer.sendActionBar(plugin.format("<#FFD700>💬 Type the bet amount in chat..."))
+                viewer.sendActionBar(plugin.format("<#FFD700>💬 Введите сумму ставки в чат..."))
             }
         gui.setItem(config.getInt("create-btn.slot", 4), createBtn)
 
         val refreshMat = config.getMaterial("refresh-btn.material", Material.COMPASS)
         val refresh = ItemBuilder.from(refreshMat)
-            .name(config.getComponent("refresh-btn.name", "<white><bold>↺ Refresh</bold>"))
+            .name(config.getComponent("refresh-btn.name", "<white><bold>↺ Обновить</bold>"))
             .lore(config.getComponentList("refresh-btn.lore"))
             .flags(*ItemFlag.values())
             .asGuiItem {
@@ -72,7 +72,7 @@ class CoinFlipGUI(plugin: CasinoPlugin, val viewer: Player) : BaseMenu(plugin, "
         val isOwn = session.creatorId == viewer.uniqueId
         val amountFmt = "$" + NumberFormat.getNumberInstance(Locale.US).format(session.betAmount)
         val clickTextKey = if (isOwn) "game-item.click-cancel" else "game-item.click-join"
-        val clickText = config.getString(clickTextKey, "<white>Click")
+        val clickText = config.getString(clickTextKey, "<white>Нажмите")
 
         val rawName = config.getString("game-item.name", "<white>%creator%")
             .replace("%creator%", session.creatorName)

@@ -253,10 +253,10 @@ class CasinoCommand(private val plugin: CasinoPlugin) : CommandExecutor, TabComp
 
     private fun handleReload(sender: CommandSender) {
         if (!isAdmin(sender)) { sender.sendMessage(msg("general.no-permission")); return }
-        val reloadingMsg = plugin.messagesConfig.getString("stats-menu.reloading", "<#FFB400>Reloading configuration...")!!
+        val reloadingMsg = plugin.messagesConfig.getString("stats-menu.reloading", "<#FFB400>Перезагрузка настроек...")!!
         sender.sendMessage(plugin.format(reloadingMsg.replace("{prefix}", plugin.messagesConfig.getString("prefix", "")!!)))
         plugin.reloadAllConfigurations()
-        val reloadedMsg = plugin.messagesConfig.getString("stats-menu.reloaded", "<#00FF7F>Configuration reloaded.")!!
+        val reloadedMsg = plugin.messagesConfig.getString("stats-menu.reloaded", "<#00FF7F>Настройки перезагружены.")!!
         sender.sendMessage(plugin.format(reloadedMsg.replace("{prefix}", plugin.messagesConfig.getString("prefix", "")!!)))
     }
 
@@ -277,73 +277,73 @@ class CasinoCommand(private val plugin: CasinoPlugin) : CommandExecutor, TabComp
         val stats = plugin.statsManager.getOrCreate(player.uniqueId, player.name)
         val lines = mutableListOf<String>()
         lines += "<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        lines += " <#FFD700>🎰 <gold><bold>CASINO STATS</bold></gold>  <gray>—  <white>${player.name}"
+        lines += " <#FFD700>🎰 <gold><bold>СТАТИСТИКА КАЗИНО</bold></gold>  <gray>—  <white>${player.name}"
         lines += "<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         when (mode) {
             null, "global" -> {
-                lines += " <#FFD700>💰 <gray>Total Wagered:   <white>${stats.totalWagered.fmt()}"
-                lines += " <#00FF7F>💵 <gray>Total Won:       <#00FF7F>${stats.totalWon.fmt()}"
+                lines += " <#FFD700>💰 <gray>Всего поставлено: <white>${stats.totalWagered.fmt()}"
+                lines += " <#00FF7F>💵 <gray>Всего выиграно: <#00FF7F>${stats.totalWon.fmt()}"
                 val pc = if (stats.profit >= 0) "<#00FF7F>" else "<#FF5555>"
-                lines += " ${pc}📊 <gray>Net Profit:      ${pc}${stats.profit.fmt()}"
+                lines += " ${pc}📊 <gray>Чистая прибыль: ${pc}${stats.profit.fmt()}"
                 lines += "<dark_gray>─────────────────────────────────────────────"
-                lines += " <#FF00FF>🌀 <#FF00FF><bold>Roulette</bold>  <gray>Bets: <white>${stats.rouletteBets}  <gray>W/L: <#00FF7F>${stats.rouletteWins}<gray>/<#FF5555>${stats.rouletteLosses}"
-                lines += "    <gray>Wagered: <white>${stats.rouletteWagered.fmt()}   <gray>Won: <#00FF7F>${stats.rouletteWon.fmt()}"
-                lines += " <#FFB400>🎰 <#FFB400><bold>Slots</bold>  <gray>Spins: <white>${stats.slotsSpins}   <gray>Jackpots: <#FFD700>${stats.slotsJackpots}"
-                lines += "    <gray>Wagered: <white>${stats.slotsWagered.fmt()}   <gray>Won: <#00FF7F>${stats.slotsWon.fmt()}"
-                lines += " <#00FFFF>♠ <#00FFFF><bold>Blackjack</bold>  <gray>Games: <white>${stats.bjGames}  <gray>W/L: <#00FF7F>${stats.bjWins}<gray>/<#FF5555>${stats.bjLosses}  <gray>BJ: <#FFD700>${stats.bjBlackjacks}"
-                lines += "    <gray>Wagered: <white>${stats.bjWagered.fmt()}   <gray>Won: <#00FF7F>${stats.bjWon.fmt()}"
-                lines += " <#FF88FF>🎟 <#FF88FF><bold>Scratch Card</bold>  <gray>Cards: <white>${stats.scratchUsed}  <gray>Wins: <#00FF7F>${stats.scratchWins}"
-                lines += "    <gray>Spent: <white>${stats.scratchSpent.fmt()}   <gray>Won: <#00FF7F>${stats.scratchWon.fmt()}"
-                lines += " <#FFD700>🎟 <#FFD700><bold>Lottery</bold>  <gray>Tickets: <white>${stats.lotteryTickets}  <gray>Wins: <#00FF7F>${stats.lotteryWins}"
-                lines += "    <gray>Spent: <white>${stats.lotterySpent.fmt()}   <gray>Won: <#00FF7F>${stats.lotteryWon.fmt()}"
-                lines += " <#FFD700>🪙 <#FFD700><bold>CoinFlip</bold>  <gray>Games: <white>${stats.coinFlipFlips}  <gray>W/L: <#00FF7F>${stats.coinFlipWins}<gray>/<#FF5555>${stats.coinFlipLosses}"
-                lines += "    <gray>Wagered: <white>${stats.coinFlipWagered.fmt()}   <gray>Won: <#00FF7F>${stats.coinFlipWon.fmt()}"
-                lines += " <#FFD700>🏇 <#FFD700><bold>Horse Racing</bold>  <gray>W/L: <#00FF7F>${stats.racingWins}<gray>/<#FF5555>${stats.racingLosses}"
-                lines += "    <gray>Wagered: <white>${stats.racingWagered.fmt()}   <gray>Won: <#00FF7F>${stats.racingWon.fmt()}"
+                lines += " <#FF00FF>🌀 <#FF00FF><bold>Рулетка</bold>  <gray>Ставок: <white>${stats.rouletteBets}  <gray>П/П: <#00FF7F>${stats.rouletteWins}<gray>/<#FF5555>${stats.rouletteLosses}"
+                lines += "    <gray>Поставлено: <white>${stats.rouletteWagered.fmt()}   <gray>Выиграно: <#00FF7F>${stats.rouletteWon.fmt()}"
+                lines += " <#FFB400>🎰 <#FFB400><bold>Автоматы</bold>  <gray>Запусков: <white>${stats.slotsSpins}   <gray>Джекпотов: <#FFD700>${stats.slotsJackpots}"
+                lines += "    <gray>Поставлено: <white>${stats.slotsWagered.fmt()}   <gray>Выиграно: <#00FF7F>${stats.slotsWon.fmt()}"
+                lines += " <#00FFFF>♠ <#00FFFF><bold>Блэкджек</bold>  <gray>Игр: <white>${stats.bjGames}  <gray>П/П: <#00FF7F>${stats.bjWins}<gray>/<#FF5555>${stats.bjLosses}  <gray>Блэкджеков: <#FFD700>${stats.bjBlackjacks}"
+                lines += "    <gray>Поставлено: <white>${stats.bjWagered.fmt()}   <gray>Выиграно: <#00FF7F>${stats.bjWon.fmt()}"
+                lines += " <#FF88FF>🎟 <#FF88FF><bold>Скретч-карты</bold>  <gray>Билетов: <white>${stats.scratchUsed}  <gray>Выигрышей: <#00FF7F>${stats.scratchWins}"
+                lines += "    <gray>Потрачено: <white>${stats.scratchSpent.fmt()}   <gray>Выиграно: <#00FF7F>${stats.scratchWon.fmt()}"
+                lines += " <#FFD700>🎟 <#FFD700><bold>Лотерея</bold>  <gray>Билетов: <white>${stats.lotteryTickets}  <gray>Выигрышей: <#00FF7F>${stats.lotteryWins}"
+                lines += "    <gray>Потрачено: <white>${stats.lotterySpent.fmt()}   <gray>Выиграно: <#00FF7F>${stats.lotteryWon.fmt()}"
+                lines += " <#FFD700>🪙 <#FFD700><bold>Орёл или решка</bold>  <gray>Игр: <white>${stats.coinFlipFlips}  <gray>П/П: <#00FF7F>${stats.coinFlipWins}<gray>/<#FF5555>${stats.coinFlipLosses}"
+                lines += "    <gray>Поставлено: <white>${stats.coinFlipWagered.fmt()}   <gray>Выиграно: <#00FF7F>${stats.coinFlipWon.fmt()}"
+                lines += " <#FFD700>🏇 <#FFD700><bold>Скачки</bold>  <gray>П/П: <#00FF7F>${stats.racingWins}<gray>/<#FF5555>${stats.racingLosses}"
+                lines += "    <gray>Поставлено: <white>${stats.racingWagered.fmt()}   <gray>Выиграно: <#00FF7F>${stats.racingWon.fmt()}"
             }
             "roulette" -> {
-                lines += " <#FF00FF>🌀 <gold><bold>ROULETTE</bold>"
-                lines += " <gray>Bets: <white>${stats.rouletteBets}  <gray>W/L: <#00FF7F>${stats.rouletteWins}<gray>/<#FF5555>${stats.rouletteLosses}"
-                val wr = if (stats.rouletteBets > 0) "${stats.rouletteWins * 100 / stats.rouletteBets}%" else "N/A"
-                lines += " <gray>Winrate: <#FFD700>$wr"
-                lines += " <gray>Wagered: <white>${stats.rouletteWagered.fmt()}  <gray>Won: <#00FF7F>${stats.rouletteWon.fmt()}"
+                lines += " <#FF00FF>🌀 <gold><bold>РУЛЕТКА</bold>"
+                lines += " <gray>Ставок: <white>${stats.rouletteBets}  <gray>Побед/поражений: <#00FF7F>${stats.rouletteWins}<gray>/<#FF5555>${stats.rouletteLosses}"
+                val wr = if (stats.rouletteBets > 0) "${stats.rouletteWins * 100 / stats.rouletteBets}%" else "Н/Д"
+                lines += " <gray>Доля побед: <#FFD700>$wr"
+                lines += " <gray>Поставлено: <white>${stats.rouletteWagered.fmt()}  <gray>Выиграно: <#00FF7F>${stats.rouletteWon.fmt()}"
             }
             "slots" -> {
-                lines += " <#FFB400>🎰 <gold><bold>777 SLOTS</bold>"
-                lines += " <gray>Spins: <white>${stats.slotsSpins}  <gray>Jackpots: <#FFD700>${stats.slotsJackpots}"
-                lines += " <gray>Wagered: <white>${stats.slotsWagered.fmt()}  <gray>Won: <#00FF7F>${stats.slotsWon.fmt()}"
+                lines += " <#FFB400>🎰 <gold><bold>АВТОМАТЫ 777</bold>"
+                lines += " <gray>Запусков: <white>${stats.slotsSpins}  <gray>Джекпотов: <#FFD700>${stats.slotsJackpots}"
+                lines += " <gray>Поставлено: <white>${stats.slotsWagered.fmt()}  <gray>Выиграно: <#00FF7F>${stats.slotsWon.fmt()}"
             }
             "blackjack", "bj", "21" -> {
-                lines += " <#00FFFF>♠ <gold><bold>BLACKJACK</bold>"
-                lines += " <gray>Games: <white>${stats.bjGames}  <gray>W/L/BJ: <#00FF7F>${stats.bjWins}<gray>/<#FF5555>${stats.bjLosses}<gray>/<#FFD700>${stats.bjBlackjacks}"
-                val wr = if (stats.bjGames > 0) "${stats.bjWins * 100 / stats.bjGames}%" else "N/A"
-                lines += " <gray>Winrate: <#FFD700>$wr"
-                lines += " <gray>Wagered: <white>${stats.bjWagered.fmt()}  <gray>Won: <#00FF7F>${stats.bjWon.fmt()}"
+                lines += " <#00FFFF>♠ <gold><bold>БЛЭКДЖЕК</bold>"
+                lines += " <gray>Игр: <white>${stats.bjGames}  <gray>Побед/поражений/блэкджеков: <#00FF7F>${stats.bjWins}<gray>/<#FF5555>${stats.bjLosses}<gray>/<#FFD700>${stats.bjBlackjacks}"
+                val wr = if (stats.bjGames > 0) "${stats.bjWins * 100 / stats.bjGames}%" else "Н/Д"
+                lines += " <gray>Доля побед: <#FFD700>$wr"
+                lines += " <gray>Поставлено: <white>${stats.bjWagered.fmt()}  <gray>Выиграно: <#00FF7F>${stats.bjWon.fmt()}"
             }
             "scratch" -> {
-                lines += " <#FF88FF>🎟 <gold><bold>SCRATCH CARDS</bold>"
-                lines += " <gray>Cards: <white>${stats.scratchUsed}  <gray>Wins: <#00FF7F>${stats.scratchWins}"
-                lines += " <gray>Spent: <white>${stats.scratchSpent.fmt()}  <gray>Won: <#00FF7F>${stats.scratchWon.fmt()}"
+                lines += " <#FF88FF>🎟 <gold><bold>СКРЕТЧ-КАРТЫ</bold>"
+                lines += " <gray>Билетов: <white>${stats.scratchUsed}  <gray>Выигрышей: <#00FF7F>${stats.scratchWins}"
+                lines += " <gray>Потрачено: <white>${stats.scratchSpent.fmt()}  <gray>Выиграно: <#00FF7F>${stats.scratchWon.fmt()}"
             }
             "lottery" -> {
-                lines += " <#FFD700>🎟 <gold><bold>LOTTERY</bold>"
-                lines += " <gray>Tickets: <white>${stats.lotteryTickets}  <gray>Prizes: <#00FF7F>${stats.lotteryWins}"
-                lines += " <gray>Spent: <white>${stats.lotterySpent.fmt()}  <gray>Won: <#00FF7F>${stats.lotteryWon.fmt()}"
+                lines += " <#FFD700>🎟 <gold><bold>ЛОТЕРЕЯ</bold>"
+                lines += " <gray>Билетов: <white>${stats.lotteryTickets}  <gray>Выигрышей: <#00FF7F>${stats.lotteryWins}"
+                lines += " <gray>Потрачено: <white>${stats.lotterySpent.fmt()}  <gray>Выиграно: <#00FF7F>${stats.lotteryWon.fmt()}"
             }
             "coinflip", "cf" -> {
-                lines += " <#FFD700>🪙 <gold><bold>COINFLIP</bold>"
-                lines += " <gray>Games: <white>${stats.coinFlipFlips}  <gray>W/L: <#00FF7F>${stats.coinFlipWins}<gray>/<#FF5555>${stats.coinFlipLosses}"
-                val wr = if (stats.coinFlipFlips > 0) "${stats.coinFlipWins * 100 / stats.coinFlipFlips}%" else "N/A"
-                lines += " <gray>Winrate: <#FFD700>$wr"
-                lines += " <gray>Wagered: <white>${stats.coinFlipWagered.fmt()}  <gray>Won: <#00FF7F>${stats.coinFlipWon.fmt()}"
+                lines += " <#FFD700>🪙 <gold><bold>ОРЁЛ ИЛИ РЕШКА</bold>"
+                lines += " <gray>Игр: <white>${stats.coinFlipFlips}  <gray>Побед/поражений: <#00FF7F>${stats.coinFlipWins}<gray>/<#FF5555>${stats.coinFlipLosses}"
+                val wr = if (stats.coinFlipFlips > 0) "${stats.coinFlipWins * 100 / stats.coinFlipFlips}%" else "Н/Д"
+                lines += " <gray>Доля побед: <#FFD700>$wr"
+                lines += " <gray>Поставлено: <white>${stats.coinFlipWagered.fmt()}  <gray>Выиграно: <#00FF7F>${stats.coinFlipWon.fmt()}"
             }
             "racing" -> {
-                lines += " <#FFD700>🏇 <gold><bold>HORSE RACING</bold>"
-                lines += " <gray>W/L: <#00FF7F>${stats.racingWins}<gray>/<#FF5555>${stats.racingLosses}"
+                lines += " <#FFD700>🏇 <gold><bold>СКАЧКИ</bold>"
+                lines += " <gray>Побед/поражений: <#00FF7F>${stats.racingWins}<gray>/<#FF5555>${stats.racingLosses}"
                 val total = stats.racingWins + stats.racingLosses
-                val wr = if (total > 0) "${stats.racingWins * 100 / total}%" else "N/A"
-                lines += " <gray>Winrate: <#FFD700>$wr"
-                lines += " <gray>Wagered: <white>${stats.racingWagered.fmt()}  <gray>Won: <#00FF7F>${stats.racingWon.fmt()}"
+                val wr = if (total > 0) "${stats.racingWins * 100 / total}%" else "Н/Д"
+                lines += " <gray>Доля побед: <#FFD700>$wr"
+                lines += " <gray>Поставлено: <white>${stats.racingWagered.fmt()}  <gray>Выиграно: <#00FF7F>${stats.racingWon.fmt()}"
             }
             else -> { player.sendMessage(msg("stats.usage")); return }
         }
@@ -352,7 +352,7 @@ class CasinoCommand(private val plugin: CasinoPlugin) : CommandExecutor, TabComp
     }
 
     private fun showTop(player: Player, mode: TopMode) {
-        val loadMsg = plugin.messagesConfig.getString("stats-menu.loading-top", "{prefix} <#FFB400>Loading top <gold>{mode}<#FFB400>...")!!
+        val loadMsg = plugin.messagesConfig.getString("stats-menu.loading-top", "{prefix} <#FFB400>Загрузка рейтинга <gold>{mode}<#FFB400>...")!!
             .replace("{mode}", mode.label)
         player.sendMessage(plugin.format(loadMsg.replace("{prefix}", plugin.messagesConfig.getString("prefix", "")!!)))
         plugin.statsManager.getTopAsync(mode, 10) { entries ->
@@ -360,7 +360,7 @@ class CasinoCommand(private val plugin: CasinoPlugin) : CommandExecutor, TabComp
                 player.sendMessage(plugin.format(it.replace("{mode}", mode.label.uppercase()))) 
             }
             if (entries.isEmpty()) {
-                val empty = plugin.messagesConfig.getString("stats-menu.top-empty", " <gray>No data available yet.")!!
+                val empty = plugin.messagesConfig.getString("stats-menu.top-empty", " <gray>Данных пока нет.")!!
                 player.sendMessage(plugin.format(empty))
             } else {
                 val format = plugin.messagesConfig.getString("stats-menu.top-format", " {medal} <white>{player} <dark_gray>→ <#00FF7F>{value}")!!

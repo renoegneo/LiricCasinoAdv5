@@ -42,17 +42,17 @@ class BlackjackManager(private val plugin: CasinoPlugin) {
         val text = when (game.state) {
             MultiGameState.WAITING -> """
                 <#FF0000><bold>♠ BLACKJACK 21 ♠</bold></#FF0000>
-                <#E0E0E0>Click to play</#E0E0E0>
-                <#00FF7F>Multiplayer: ${game.activePlayers.size}/${game.maxPlayers}</#00FF7F>
+                <#E0E0E0>Нажмите, чтобы сыграть</#E0E0E0>
+                <#00FF7F>Игроки: ${game.activePlayers.size}/${game.maxPlayers}</#00FF7F>
             """.trimIndent().replace("\n", "<br>")
             MultiGameState.STARTING -> """
                 <#FF0000><bold>♠ BLACKJACK 21 ♠</bold></#FF0000>
-                <#E0E0E0>Starting in <#FFB400>${game.countdownSeconds}s</#FFB400></#E0E0E0>
-                <#00FF7F>Multiplayer: ${game.activePlayers.size}/${game.maxPlayers}</#00FF7F>
+                <#E0E0E0>Начало через <#FFB400>${game.countdownSeconds} с</#FFB400></#E0E0E0>
+                <#00FF7F>Игроки: ${game.activePlayers.size}/${game.maxPlayers}</#00FF7F>
             """.trimIndent().replace("\n", "<br>")
             MultiGameState.PLAYING -> """
                 <#FF0000><bold>♠ BLACKJACK 21 ♠</bold></#FF0000>
-                <#FF5555>Multi game in progress...</#FF5555>
+                <#FF5555>Игра уже идёт...</#FF5555>
             """.trimIndent().replace("\n", "<br>")
         }
 

@@ -51,22 +51,22 @@ class BlackjackBetMenu(
 
         val customSlot = config.getInt("buttons.custom-bet.slot", 4)
         val customMat  = config.getMaterial("buttons.custom-bet.material", Material.PAPER)
-        val customName = config.getComponent("buttons.custom-bet.name", "<#FFD700>Custom Amount")
+        val customName = config.getComponent("buttons.custom-bet.name", "<#FFD700>Своя ставка")
 
         val customBtn = ItemBuilder.from(customMat)
             .name(customName)
-            .lore(plugin.format("<gray>Click to type the amount in chat"))
+            .lore(plugin.format("<gray>Нажмите, чтобы ввести сумму в чат"))
             .flags(*ItemFlag.values())
             .asGuiItem {
                 gui.close(player)
-                player.sendMessage(plugin.format("<#FFD700><b>✍ Type the exact amount you want to bet:</b>"))
+                player.sendMessage(plugin.format("<#FFD700><b>✍ Введите точную сумму ставки в чат:</b>"))
 
                 plugin.economyManager.openCustomBetChat(player) { amount ->
                     if (amount in minLimit..maxLimit) {
                         currentBet = amount
                         open()
                     } else {
-                        player.sendMessage(plugin.format("<red>Invalid amount. Must be between $minLimit and $maxLimit"))
+                        player.sendMessage(plugin.format("<red>Неверная сумма. Допустимое значение: от $minLimit до $maxLimit"))
                     }
                 }
             }
@@ -94,14 +94,14 @@ class BlackjackBetMenu(
                     try {
                         session.start()
                     } catch (exception: Exception) {
-                        plugin.logger.log(Level.SEVERE, "Failed to start blackjack for ${player.name}.", exception)
+                        plugin.logger.log(Level.SEVERE, "Не удалось начать игру в блэкджек для ${player.name}.", exception)
                         when (session.refundOnStartupFailure()) {
                             StartupRefundResult.REFUNDED ->
-                                player.sendMessage(plugin.format("<red>Blackjack could not start. Your bet was refunded."))
+                                player.sendMessage(plugin.format("<red>Не удалось начать игру в блэкджек. Ваша ставка возвращена."))
                             StartupRefundResult.ALREADY_SETTLED ->
-                                player.sendMessage(plugin.format("<red>Blackjack failed after settlement. Contact staff if the payout is missing."))
+                                player.sendMessage(plugin.format("<red>Ошибка блэкджека после расчёта. Если выплата не поступила, обратитесь к администрации."))
                             StartupRefundResult.FAILED ->
-                                player.sendMessage(plugin.format("<red>Blackjack could not start and the refund failed. Please contact staff."))
+                                player.sendMessage(plugin.format("<red>Не удалось начать игру и вернуть ставку. Обратитесь к администрации."))
                         }
                         return@asGuiItem
                     }

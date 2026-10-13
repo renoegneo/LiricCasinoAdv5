@@ -1,4 +1,4 @@
-title: "<#FF0000><bold>♠ TEXAS HOLD'EM ♠</bold></#FF0000>"
+title: "<#FF0000><bold>♠ ТЕХАССКИЙ ХОЛДЕМ ♠</bold></#FF0000>"
 
 items:
   filler:
@@ -9,27 +9,27 @@ items:
     name: "<#E0E0E0><bold>{name}</bold></#E0E0E0>"
   empty-card:
     material: MAP
-    name: "<gray>COMMUNITY CARD</gray>"
+    name: "<gray>ОБЩАЯ КАРТА</gray>"
   pot:
     material: GOLD_BLOCK
-    name: "<#FFD700><bold>TOTAL POT: {pot}</bold></#FFD700>"
+    name: "<#FFD700><bold>ОБЩИЙ БАНК: {pot}</bold></#FFD700>"
   time:
     material: CLOCK
-    name: "<#FFB400>Time: {time}s</#FFB400>"
+    name: "<#FFB400>Время: {time} с</#FFB400>"
   fold:
     material: RED_DYE
-    name: "<#FF5555><bold>FOLD</bold>"
+    name: "<#FF5555><bold>СБРОСИТЬ</bold>"
   call:
     material: YELLOW_DYE
     name: "<#FFD700><bold>{text}</bold>"
   raise:
     material: LIME_DYE
-    name: "<#00FF7F><bold>RAISE +${amount}</bold>"
+    name: "<#00FF7F><bold>ПОВЫСИТЬ +${amount}</bold>"
     lore:
-      - "<gray>Increase the current bet by ${amount}."
+      - "<gray>Увеличить текущую ставку на ${amount}."
   wait:
     material: BARRIER
-    name: "<#555555>Wait for your turn...</#555555>"
+    name: "<#555555>Дождитесь своего хода...</#555555>"
   hidden-card:
     material: PAPER
-    name: "<#FFB400><bold>🂠 HIDDEN CARD</bold>"
+    name: "<#FFB400><bold>🂠 ЗАКРЫТАЯ КАРТА</bold>"

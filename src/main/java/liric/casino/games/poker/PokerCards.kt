@@ -23,7 +23,7 @@ data class Card(val rank: Rank, val suit: Suit) {
     fun toItemStack(plugin: CasinoPlugin, hidden: Boolean = false): ItemStack {
         if (hidden) {
             return ItemBuilder.from(Material.MAP)
-                .name(plugin.format("<#FFB400><bold>🂠 HIDDEN CARD</bold>"))
+                .name(plugin.format("<#FFB400><bold>🂠 ЗАКРЫТАЯ КАРТА</bold>"))
                 .flags(*ItemFlag.values()).build()
         }
         return ItemBuilder.from(Material.PAPER)
@@ -100,15 +100,15 @@ object HandEvaluator {
 
     fun getHandName(score: Long): String {
         return when (score / CATEGORY_BASE) {
-            8L -> "Straight Flush"
-            7L -> "Four of a Kind"
-            6L -> "Full House"
-            5L -> "Flush"
-            4L -> "Straight"
-            3L -> "Three of a Kind"
-            2L -> "Two Pair"
-            1L -> "One Pair"
-            else -> "High Card"
+            8L -> "Стрит-флеш"
+            7L -> "Каре"
+            6L -> "Фул-хаус"
+            5L -> "Флеш"
+            4L -> "Стрит"
+            3L -> "Сет"
+            2L -> "Две пары"
+            1L -> "Пара"
+            else -> "Старшая карта"
         }
     }
 }

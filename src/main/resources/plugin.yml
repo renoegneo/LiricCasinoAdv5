@@ -2,46 +2,46 @@ name: CasinoLiric
 version: '${version}'
 main: liric.casino.CasinoPlugin
 api-version: '26.3'
-description: Casino minigames with Vault economy integration
+description: Казино-мини-игры с поддержкой экономики Vault
 authors: [Pumpkings]
 depend: [Vault, packetevents]
 softdepend: [PlaceholderAPI]
 
 commands:
   casino:
-    description: Main CasinoLiric command
+    description: Основная команда CasinoLiric
     usage: /casino [game|stats|top|reload]
   roulette:
-    description: Roulette command
+    description: Команда рулетки
     aliases: [roulette]
   scratch:
-    description: Scratch-card command
+    description: Команда скретч-карт
     aliases: [ticket]
   slots:
-    description: Slots command
+    description: Команда игровых автоматов
     aliases: [slots, '777']
   poker:
-    description: Poker command
+    description: Команда покера
   blackjack:
-    description: Blackjack command
+    description: Команда блэкджека
     aliases: [bj, '21']
   lottery:
-    description: Lottery command
+    description: Команда лотереи
     aliases: [lottery]
   coinflip:
-    description: CoinFlip command
+    description: Команда игры «Орёл или решка»
   cf:
-    description: CoinFlip short command
+    description: Короткая команда игры «Орёл или решка»
   rps:
-    description: Rock-paper-scissors command
+    description: Команда игры «Камень, ножницы, бумага»
   ttt:
-    description: Tic-tac-toe command
+    description: Команда игры «Крестики-нолики»
     aliases: [tictactoe]
   racing:
-    description: Horse-racing command
+    description: Команда скачек
     aliases: [races]
 
 permissions:
   casino.admin:
-    description: Access to CasinoLiric administration commands
+    description: Доступ к командам администрирования CasinoLiric
     default: op

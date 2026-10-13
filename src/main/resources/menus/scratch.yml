@@ -1,9 +1,9 @@
 # ═══════════════════════════════════════════════════════
-#   menus/scratch.yml — Scratch and Win Menu
+#   menus/scratch.yml — меню скретч-карт
 # ═══════════════════════════════════════════════════════
 
-# The title uses {tier} as a placeholder
-title: "<#FFD700><bold>🎟 SCRATCH & WIN {tier} 🎟</bold>"
+# В заголовке используется подстановка {tier}
+title: "<#FFD700><bold>🎟 СКРЕТЧ-КАРТА {tier} 🎟</bold>"
 
 filler:
   material: BLACK_STAINED_GLASS_PANE
@@ -12,18 +12,18 @@ decorations: []
 
 scratch-block:
   material: BLACK_CONCRETE
-  name: "<#E0E0E0><bold>⬛ Scratch here!</bold>"
+  name: "<#E0E0E0><bold>⬛ Сотрите здесь!</bold>"
   lore:
-    - "<#FFD700>Click to reveal"
+    - "<#FFD700>Нажмите, чтобы открыть"
 
-missed-suffix: " <dark_gray>(Hidden)"
+missed-suffix: " <dark_gray>(Скрыто)"
 
 close-delay-ticks: 50
 
 ticket:
-  name: "<#FFD700><bold>🎟 BOLETO {tier} 🎟</bold>"
+  name: "<#FFD700><bold>🎟 БИЛЕТ {tier} 🎟</bold>"
   lore:
-    - "<#E0E0E0>Haz <#00FF7F><bold>Click Derecho</bold> <#E0E0E0>al aire"
-    - "<#E0E0E0>Use this ticket to play.</#E0E0E0>"
+    - "<#E0E0E0>Нажмите <#00FF7F><bold>ПКМ</bold> <#E0E0E0>по воздуху"
+    - "<#E0E0E0>Используйте этот билет, чтобы сыграть.</#E0E0E0>"
     - ""
-    - "<#FFB400>Match {matches} identical prizes to win!</#FFB400>"
+    - "<#FFB400>Соберите {matches} одинаковых приза для выигрыша!</#FFB400>"

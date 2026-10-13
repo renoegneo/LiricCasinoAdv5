@@ -1,5 +1,5 @@
-# CasinoLiric — Economy Configuration
-# Set max-uses-per-day to -1 for unlimited access.
+# CasinoLiric — настройки экономики
+# Укажите -1 для параметра max-uses-per-day, чтобы снять дневной лимит.
 
 taxes:
   enabled: false

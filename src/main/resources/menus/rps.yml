@@ -1,46 +1,46 @@
-# Rock Paper Scissors Choice Menu
-title: "<#FF5555>⚔ <gold><bold>Rock Paper Scissors</bold> <#FF5555>⚔"
+# Меню выбора в игре «Камень, ножницы, бумага»
+title: "<#FF5555>⚔ <gold><bold>Камень, ножницы, бумага</bold> <#FF5555>⚔"
 rows: 3
 
-# ── Info Item ──
+# ── Информация об игре ──
 info-item:
   slot: 4
   material: PAPER
-  name: "<#FFD700><bold>Your Bet: <white>$%amount%"
+  name: "<#FFD700><bold>Ваша ставка: <white>$%amount%"
   lore:
-    - "<gray>Opponent: <white>%opponent%"
+    - "<gray>Соперник: <white>%opponent%"
     - " "
-    - "<gray>Choose your play..."
+    - "<gray>Сделайте свой выбор..."
 
-# ── Buttons ──
+# ── Кнопки выбора ──
 piedra-btn:
   slot: 11
   material: COBBLESTONE
-  name: "<gray><bold>🪨 ROCK</bold>"
+  name: "<gray><bold>🪨 КАМЕНЬ</bold>"
   lore:
-    - "<dark_gray>Beats Scissors"
+    - "<dark_gray>Побеждает ножницы"
 
 papel-btn:
   slot: 13
   material: PAPER
-  name: "<white><bold>📄 PAPER</bold>"
+  name: "<white><bold>📄 БУМАГА</bold>"
   lore:
-    - "<dark_gray>Beats Rock"
+    - "<dark_gray>Побеждает камень"
 
 tijera-btn:
   slot: 15
   material: SHEARS
-  name: "<#FF5555><bold>✂ SCISSORS</bold>"
+  name: "<#FF5555><bold>✂ НОЖНИЦЫ</bold>"
   lore:
-    - "<dark_gray>Beats Paper"
+    - "<dark_gray>Побеждают бумагу"
 
 cancel-btn:
   slot: 22
   material: BARRIER
-  name: "<red><bold>✖ Cancel</bold>"
+  name: "<red><bold>✖ Отменить</bold>"
   lore: []
 
-# ── Decorations ──
+# ── Декорации ──
 decorations:
   - material: BLACK_STAINED_GLASS_PANE
     name: " "

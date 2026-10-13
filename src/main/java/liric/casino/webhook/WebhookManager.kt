@@ -39,9 +39,9 @@ class WebhookManager(private val plugin: CasinoPlugin) {
         if (url.isBlank() || url == "https://discord.com/api/webhooks/YOUR_ID/YOUR_TOKEN") return
 
         val color   = cfg().getInt("webhooks.jackpot.color", 0xFF00FF)
-        val title   = cfg().getString("webhooks.jackpot.title", "🎰 JACKPOT!") ?: "🎰 JACKPOT!"
+        val title   = cfg().getString("webhooks.jackpot.title", "🎰 ДЖЕКПОТ!") ?: "🎰 ДЖЕКПОТ!"
         val desc    = (cfg().getString("webhooks.jackpot.description")
-            ?: "**{player}** hit the JACKPOT in **{game}** and won **{amount}**!")
+            ?: "**{player}** сорвал джекпот в игре **{game}** и выиграл **{amount}**!")
             .replace("{player}", playerName)
             .replace("{game}", game)
             .replace("{amount}", fmt(amount))
@@ -63,9 +63,9 @@ class WebhookManager(private val plugin: CasinoPlugin) {
         if (amount < threshold) return
 
         val color   = cfg().getInt("webhooks.big-win.color", 0xFFD700)
-        val title   = cfg().getString("webhooks.big-win.title", "💰 Big Win!") ?: "💰 Big Win!"
+        val title   = cfg().getString("webhooks.big-win.title", "💰 Крупный выигрыш!") ?: "💰 Крупный выигрыш!"
         val desc    = (cfg().getString("webhooks.big-win.description")
-            ?: "**{player}** won **{amount}** in **{game}**!")
+            ?: "**{player}** выиграл **{amount}** в игре **{game}**!")
             .replace("{player}", playerName)
             .replace("{game}", game)
             .replace("{amount}", fmt(amount))
@@ -84,9 +84,9 @@ class WebhookManager(private val plugin: CasinoPlugin) {
         if (url.isBlank() || url == "https://discord.com/api/webhooks/YOUR_ID/YOUR_TOKEN") return
 
         val color   = cfg().getInt("webhooks.lottery.color", 0xFFD700)
-        val title   = cfg().getString("webhooks.lottery.title", "🎟 Lottery Winner!") ?: "🎟 Lottery Winner!"
+        val title   = cfg().getString("webhooks.lottery.title", "🎟 Победитель лотереи!") ?: "🎟 Победитель лотереи!"
         val desc    = (cfg().getString("webhooks.lottery.description")
-            ?: "**{player}** won the Lottery with the number **{number}** and took **{amount}**!")
+            ?: "**{player}** выиграл в лотерее с номером **{number}** и получил **{amount}**!")
             .replace("{player}", playerName)
             .replace("{number}", number.toString())
             .replace("{amount}", fmt(amount))
@@ -122,11 +122,11 @@ class WebhookManager(private val plugin: CasinoPlugin) {
 
                 val code = conn.responseCode
                 if (code !in 200..299) {
-                    plugin.logger.warning("[Webhook] Unexpected HTTP code: $code")
+                    plugin.logger.warning("[Вебхук] Неожиданный HTTP-код ответа: $code")
                 }
                 conn.disconnect()
             } catch (e: Exception) {
-                plugin.logger.warning("[Webhook] Error sending embed: ${e.message}")
+                plugin.logger.warning("[Вебхук] Не удалось отправить сообщение: ${e.message}")
             }
         }
     }

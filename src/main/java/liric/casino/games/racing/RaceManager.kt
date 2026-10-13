@@ -21,10 +21,10 @@ class RaceManager(plugin: CasinoPlugin) : AbstractGameManager<RaceSession>(plugi
     private val raceHorses = mutableMapOf<UUID, MutableList<BukkitHorse>>()
     private val dataFile = File(plugin.dataFolder, "data.yml")
     private var defaultHorses = listOf(
-        Horse(1, "Lightning", "⚡", 2.0, 40),
-        Horse(2, "Shadow", "🌑", 3.0, 30),
-        Horse(3, "Tornado", "🌪", 5.0, 20),
-        Horse(4, "Comet", "☄", 10.0, 10)
+        Horse(1, "Молния", "⚡", 2.0, 40),
+        Horse(2, "Тень", "🌑", 3.0, 30),
+        Horse(3, "Торнадо", "🌪", 5.0, 20),
+        Horse(4, "Комета", "☄", 10.0, 10)
     )
 
     private fun msg(key: String, vararg ph: Pair<String, String>) = plugin.messages.get(key, *ph)

@@ -1,8 +1,8 @@
 # ═══════════════════════════════════════════════════════
-#   menus/apuesta_ruleta.yml — Bet amount menu (Roulette)
+#   menus/apuesta_ruleta.yml — меню суммы ставки в рулетке
 # ═══════════════════════════════════════════════════════
 
-title: "<black><bold>Bet ➔ {target}"
+title: "<black><bold>Ставка ➔ {target}"
 rows: 3
 
 decorations:
@@ -14,7 +14,7 @@ decorations:
     slots: [9, 17]
 
 buttons:
-  # Minus buttons (slots 10, 11, 12)
+  # Кнопки уменьшения ставки (слоты 10, 11, 12)
   minus-big:
     slot: 10
     material: RED_DYE
@@ -34,7 +34,7 @@ buttons:
     amount: -100.0
     color: "<#FF3333>"
 
-  # Plus buttons (slots 14, 15, 16)
+  # Кнопки увеличения ставки (слоты 14, 15, 16)
   plus-small:
     slot: 14
     material: LIME_DYE
@@ -57,34 +57,34 @@ buttons:
   custom-bet:
     slot: 4
     material: PAPER
-    name: "<#FFD700>Custom Bet"
+    name: "<#FFD700>Своя ставка"
 
-  # MAX BET (slot 22)
+  # Максимальная ставка (слот 22)
   max-bet:
     slot: 22
     material: GOLD_BLOCK
-    name: "<#FFD700><bold>✦ MAX BET! ✦"
+    name: "<#FFD700><bold>✦ МАКСИМАЛЬНАЯ СТАВКА! ✦"
     lore:
-      - "<gray>Bet the maximum: <#00FF7F>${max}"
+      - "<gray>Поставить максимум: <#00FF7F>${max}"
 
-  # BACK (slot 18)
+  # Назад (слот 18)
   back:
     slot: 18
     material: ARROW
-    name: "<#FF3333><bold>Back"
+    name: "<#FF3333><bold>Назад"
 
-  # CONFIRM (slot 13 — dynamically updated)
+  # Подтвердить (слот 13 — обновляется динамически)
   confirm:
-    confirm-name: "<#00FF7F><bold>✔ CONFIRM BET"
-    lore-target: "<gray>Target: <white>{target}"
-    lore-total: "<gray>Total on table: <#00FF7F>${amount}"
+    confirm-name: "<#00FF7F><bold>✔ ПОДТВЕРДИТЬ СТАВКУ"
+    lore-target: "<gray>Цель: <white>{target}"
+    lore-total: "<gray>Всего на столе: <#00FF7F>${amount}"
     lore-click: ""
-    lore-action: "<#FFD700>Click to place bet!"
+    lore-action: "<#FFD700>Нажмите, чтобы сделать ставку!"
 
 error:
-  limit-msg: "<#FF3333><bold>LIMIT REACHED ({max})!"
-  limit-lore: "<gray>You cannot bet more than {max}."
-  no-funds-msg: "<#FF3333><bold>NO FUNDS!"
-  no-funds-lore: "<gray>You do not have enough money."
-  min-msg: "<#FF3333><bold>MINIMUM REACHED!"
-  min-lore: "<gray>The bet cannot be less than 0."
+  limit-msg: "<#FF3333><bold>ДОСТИГНУТ ЛИМИТ ({max})!"
+  limit-lore: "<gray>Нельзя поставить больше {max}."
+  no-funds-msg: "<#FF3333><bold>НЕДОСТАТОЧНО СРЕДСТВ!"
+  no-funds-lore: "<gray>У вас недостаточно денег."
+  min-msg: "<#FF3333><bold>ДОСТИГНУТА МИНИМАЛЬНАЯ СТАВКА!"
+  min-lore: "<gray>Ставка не может быть меньше 0."

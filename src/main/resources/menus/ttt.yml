@@ -1,19 +1,19 @@
-# Tic Tac Toe Board Menu
-# Menu title is dynamic (TTTBoard.kt), but here is a base:
-title: "<#FFD700><bold>Tic Tac Toe</bold>"
+# Меню игрового поля «Крестики-нолики»
+# Заголовок задаётся динамически в TTTBoard.kt; ниже указан основной вариант.
+title: "<#FFD700><bold>Крестики-нолики</bold>"
 rows: 5
 
-# ── Info ──
+# ── Информация ──
 info-item:
   slot: 40
   material: PAPER
-  name: "<#FFD700><bold>Tic Tac Toe</bold>"
+  name: "<#FFD700><bold>Крестики-нолики</bold>"
   lore:
-    - "<gray>You are: <white>%my_mark%  <gray>Opponent: <white>%opponent%"
-    - "<gray>Bet: <#FFD700>$%amount%"
+    - "<gray>Вы играете за: <white>%my_mark%  <gray>Соперник: <white>%opponent%"
+    - "<gray>Ставка: <#FFD700>$%amount%"
     - "%turn_status%"
 
-# ── Cells and Turns ──
+# ── Клетки и ходы ──
 cell-x:
   material: RED_STAINED_GLASS_PANE
   name: "<red><bold>❌ X</bold>"
@@ -24,24 +24,24 @@ cell-o:
 
 cell-empty-my-turn:
   material: WHITE_STAINED_GLASS_PANE
-  name: "<yellow>▶ Click to play here</yellow>"
+  name: "<yellow>▶ Нажмите, чтобы поставить сюда знак</yellow>"
 
 cell-empty-opp-turn:
   material: GRAY_STAINED_GLASS_PANE
-  name: "<gray>Waiting for opponent...</gray>"
+  name: "<gray>Ожидание хода соперника...</gray>"
 
-turn-status-my-turn: "<#00FF7F>It is your turn!"
-turn-status-opp-turn: "<gray>Opponent's turn..."
+turn-status-my-turn: "<#00FF7F>Ваш ход!"
+turn-status-opp-turn: "<gray>Ход соперника..."
 
-# ── Borders (Dynamic material based on turn) ──
+# ── Рамки (материал меняется в зависимости от хода) ──
 my-turn-border-material: YELLOW_STAINED_GLASS_PANE
 opp-turn-border-material: GRAY_STAINED_GLASS_PANE
 
-# ── Cell slots ──
-# The 9 cells (0-8) of the board
+# ── Слоты клеток ──
+# 9 клеток игрового поля (0–8)
 cell-slots: [10, 12, 14, 19, 21, 23, 28, 30, 32]
 
-# ── Static decorations (Borders) ──
+# ── Статичные декорации (рамки) ──
 decorations:
   - material: BLACK_STAINED_GLASS_PANE
     name: " "

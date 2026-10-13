@@ -63,11 +63,11 @@ class SlotMachineMenu(
 
         val customSlot = config.getInt("buttons.custom-bet.slot", 4)
         val customMat  = config.getMaterial("buttons.custom-bet.material", Material.PAPER)
-        val customName = config.getComponent("buttons.custom-bet.name", "<#FFD700>Custom Bet")
+        val customName = config.getComponent("buttons.custom-bet.name", "<#FFD700>Своя ставка")
 
         val customBtn = ItemBuilder.from(customMat)
             .name(customName)
-            .lore(plugin.format(plugin.messagesConfig.getString("slots-extra.custom-bet-lore", "<gray>Click to type amount in chat")!!))
+            .lore(plugin.format(plugin.messagesConfig.getString("slots-extra.custom-bet-lore", "<gray>Нажмите, чтобы ввести сумму в чат")!!))
             .flags(*ItemFlag.values())
             .asGuiItem {
                 gui.close(player)
@@ -78,7 +78,7 @@ class SlotMachineMenu(
                         currentBet = amount
                         open()
                     } else {
-                        val msg = plugin.messagesConfig.getString("slots-extra.invalid-amount", "<red>Invalid amount. Must be between {min} and {max}</red>")!!
+                        val msg = plugin.messagesConfig.getString("slots-extra.invalid-amount", "<red>Неверная сумма. Допустимое значение: от {min} до {max}</red>")!!
                             .replace("{min}", minBet.toString()).replace("{max}", maxBet.toString())
                         player.sendMessage(plugin.format(msg.replace("{prefix}", plugin.messagesConfig.getString("prefix", "")!!)))
                     }

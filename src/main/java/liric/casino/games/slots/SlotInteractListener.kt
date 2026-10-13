@@ -1,6 +1,7 @@
 package liric.casino.games.slots
 
 import liric.casino.CasinoPlugin
+import liric.casino.util.ColorUtil
 import org.bukkit.Bukkit
 import org.bukkit.Sound
 import org.bukkit.event.EventHandler
@@ -29,7 +30,11 @@ class SlotInteractListener(private val plugin: CasinoPlugin) : Listener {
             val occupantPlayer = Bukkit.getPlayer(machine.occupant!!)
 
 
-            if (occupantPlayer == null || !occupantPlayer.isOnline || !occupantPlayer.openInventory.title.contains("777 MACHINE")) {
+            val configuredTitle = plugin.menuConfig("slots.yml").getString("title", "<#FFB400><bold>🎰 АВТОМАТ 777 🎰</bold>")
+            val expectedTitle = ColorUtil.stripColor(configuredTitle)
+            val currentTitle = occupantPlayer?.openInventory?.title.orEmpty()
+            if (occupantPlayer == null || !occupantPlayer.isOnline ||
+                ColorUtil.stripColor(currentTitle) != expectedTitle) {
                 plugin.slotManager.freeMachine(block.location)
             } else {
 

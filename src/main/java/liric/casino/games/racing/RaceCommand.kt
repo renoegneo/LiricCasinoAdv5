@@ -43,12 +43,12 @@ class RaceCommand(private val plugin: CasinoPlugin) : CommandExecutor, TabComple
 
     private fun sendHelp(player: Player) {
         player.sendMessage(plugin.messages.get("general.command-separator"))
-        player.sendMessage(plugin.format(" <#FFD700>🏇 <gold><bold>RACING — Help</bold>"))
+        player.sendMessage(plugin.format(" <#FFD700>🏇 <gold><bold>СКАЧКИ — Справка</bold>"))
         player.sendMessage(plugin.messages.get("general.command-separator"))
-        player.sendMessage(plugin.format(" <#FFB400>/racing <dark_gray>— <gray>Open betting menu"))
+        player.sendMessage(plugin.format(" <#FFB400>/racing <dark_gray>— <gray>Открыть меню ставок"))
         if (player.hasPermission("casino.admin")) {
-            player.sendMessage(plugin.format(" <red>/racing setup <dark_gray>— <gray>Create and save a track"))
-            player.sendMessage(plugin.format(" <red>/racing delete <dark_gray>— <gray>Delete the nearest track"))
+            player.sendMessage(plugin.format(" <red>/racing setup <dark_gray>— <gray>Создать и сохранить трассу"))
+            player.sendMessage(plugin.format(" <red>/racing delete <dark_gray>— <gray>Удалить ближайшую трассу"))
         }
         player.sendMessage(plugin.messages.get("general.command-separator"))
     }

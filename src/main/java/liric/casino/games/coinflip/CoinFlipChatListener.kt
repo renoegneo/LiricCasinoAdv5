@@ -23,7 +23,7 @@ class CoinFlipChatListener(private val plugin: CasinoPlugin) : Listener {
             plugin.coinFlipManager.removePendingChat(player.uniqueId)
 
             if (input.equals("cancel", ignoreCase = true)) {
-                player.sendMessage(plugin.format("<gray>Game creation cancelled."))
+                player.sendMessage(plugin.format("<gray>Создание игры отменено."))
                 player.playSound(player.location, Sound.UI_BUTTON_CLICK, 1f, 0.8f)
                 return@runGlobal
             }

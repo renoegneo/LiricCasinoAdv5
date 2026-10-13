@@ -69,7 +69,7 @@ class RouletteManager(private val plugin: CasinoPlugin) {
             }
         }
         if (loaded > 0) {
-            val msg = plugin.messagesConfig.getString("roulette-extra.loaded", "<#00FF7F>Loaded {count} roulettes from data.yml.</#00FF7F>")!!
+            val msg = plugin.messagesConfig.getString("roulette-extra.loaded", "<#00FF7F>Загружено рулеток: {count} (из data.yml).</#00FF7F>")!!
             plugin.server.consoleSender.sendMessage(plugin.format(msg.replace("{count}", loaded.toString())))
         }
     }
@@ -412,8 +412,8 @@ class RouletteManager(private val plugin: CasinoPlugin) {
         spinCanceller = SchedulerUtil.runGlobalTimer(plugin, 0L, 1L) {
             if (ticks >= durationTicks) {
                 val finishHologram = """
-                    <#FF00FF><bold>🌀 ROULETTE 🌀</bold></#FF00FF>
-                    <#E0E0E0>Winning Number:</#E0E0E0>
+                    <#FF00FF><bold>🌀 РУЛЕТКА 🌀</bold></#FF00FF>
+                    <#E0E0E0>Выпавшее число:</#E0E0E0>
                     ${winningColor.chatColor}<bold>$winningNumber (${winningColor.displayName})</bold>
                 """.trimIndent().replace("\n", "<br>")
 

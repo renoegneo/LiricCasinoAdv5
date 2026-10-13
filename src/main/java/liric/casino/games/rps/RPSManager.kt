@@ -104,7 +104,7 @@ class RPSManager(plugin: CasinoPlugin) : AbstractMatchmakingManager<RPSSession>(
             c1.beats(c2) -> {
                 if (creator != null) {
                     processWin(creator, session.betAmount)
-                    creator.sendMessage(msg("rps.win",  "myChoice" to "${c1.emoji} ${c1.displayName}", "opChoice" to "${c2.emoji} ${c2.displayName}", "amount" to (session.betAmount * 2).toLong().toString(), "tax" to "")) // tax logic already handled by processWin, keeping placeholder if needed. Wait, in original code it sent the tax message here. Let's just pass empty or recalculate for message if required. But processWin sends tax deduction message separately! So this is cleaner.
+                    creator.sendMessage(msg("rps.win",  "myChoice" to "${c1.emoji} ${c1.displayName}", "opChoice" to "${c2.emoji} ${c2.displayName}", "amount" to (session.betAmount * 2).toLong().toString(), "tax" to ""))
                     creator.playSound(creator.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
                 } else {
                     val totalPot = session.betAmount * 2
@@ -174,7 +174,7 @@ class RPSManager(plugin: CasinoPlugin) : AbstractMatchmakingManager<RPSSession>(
             val winner = Bukkit.getPlayer(winnerId)
             if (winner != null) {
                 processWin(winner, session.betAmount)
-                val msg = plugin.messagesConfig.getString("rps-extra.opponent-disconnected", "<red>Your opponent disconnected. <green>You won the bet automatically!")!!
+                val msg = plugin.messagesConfig.getString("rps-extra.opponent-disconnected", "<red>Соперник отключился. <green>Вы автоматически выиграли ставку!")!!
                 winner.sendMessage(plugin.format(msg.replace("{prefix}", plugin.messagesConfig.getString("prefix", "")!!)))
                 winner.playSound(winner.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
                 winner.closeInventory()

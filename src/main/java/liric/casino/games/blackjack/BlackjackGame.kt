@@ -41,9 +41,9 @@ class BlackjackSession(
             gui.disableAllInteractions().disableItemTake().disableItemSwap().disableItemDrop().disableItemPlace()
             
             if (dealerScore == 21) {
-                endGame(gui, "Tie. Both got Blackjack.", betAmount)
+                endGame(gui, "Ничья: у обоих блэкджек.", betAmount)
             } else {
-                endGame(gui, "NATURAL BLACKJACK!", betAmount * 2.5)
+                endGame(gui, "НАТУРАЛЬНЫЙ БЛЭКДЖЕК!", betAmount * 2.5)
             }
             gui.open(player)
             player.playSound(player.location, Sound.ITEM_BOOK_PAGE_TURN, 1f, 1f)
@@ -65,7 +65,7 @@ class BlackjackSession(
 
         val dealerStatus = if (status == GameStatus.PLAYER_TURN) "?" else dealerScore.toString()
         val dealerMat = config.getMaterial("items.dealer-head.material", Material.SKELETON_SKULL)
-        val dealerName = config.getString("items.dealer-head.name", "<#FF5555><bold>DEALER</bold>")
+        val dealerName = config.getString("items.dealer-head.name", "<#FF5555><bold>ДИЛЕР</bold>")
         val dealerLore = config.getStringList("items.dealer-head.lore").map { plugin.format(it.replace("{score}", dealerStatus)) }
         val dealerHead = ItemBuilder.from(dealerMat)
             .name(plugin.format(dealerName))
@@ -83,7 +83,7 @@ class BlackjackSession(
         }
 
         val playerMat = config.getMaterial("items.player-head.material", Material.PLAYER_HEAD)
-        val playerName = config.getString("items.player-head.name", "<#00FF7F><bold>YOUR HAND</bold>")
+        val playerName = config.getString("items.player-head.name", "<#00FF7F><bold>ВАШИ КАРТЫ</bold>")
         val playerLore = config.getStringList("items.player-head.lore").map { 
             plugin.format(it.replace("{score}", playerScore.toString()).replace("{bet}", betAmount.toString())) 
         }
@@ -107,7 +107,7 @@ class BlackjackSession(
 
                     if (BlackjackLogic.calculateScore(playerHand) > 21) {
                         status = GameStatus.FINISHED
-                        endGame(gui, "You busted! You lost.", 0.0)
+                        endGame(gui, "У вас перебор. Вы проиграли.", 0.0)
                         setupItems(gui)
                     } else {
                         setupItems(gui)
@@ -128,7 +128,7 @@ class BlackjackSession(
 
             if (isFirstAction) {
                 val doubleMat = config.getMaterial("items.double.material", Material.GOLD_BLOCK)
-                val doubleName = config.getString("items.double.name", "<#FFD700><bold>💰 DOUBLE DOWN</bold>")
+                val doubleName = config.getString("items.double.name", "<#FFD700><bold>💰 УДВОИТЬ СТАВКУ</bold>")
                 val doubleLore = config.getStringList("items.double.lore").map { 
                     plugin.format(it.replace("{bet}", betAmount.toString())) 
                 }
@@ -191,10 +191,10 @@ class BlackjackSession(
                 status = GameStatus.FINISHED
 
                 when {
-                    dealerScore > 21 -> endGame(gui, "Dealer busted! You win.", betAmount * 2)
-                    playerScore > dealerScore -> endGame(gui, "You beat the Dealer!", betAmount * 2)
-                    playerScore == dealerScore -> endGame(gui, "Push. You get your bet back.", betAmount)
-                    else -> endGame(gui, "Dealer won. Better luck next time.", 0.0)
+                    dealerScore > 21 -> endGame(gui, "У дилера перебор. Вы выиграли.", betAmount * 2)
+                    playerScore > dealerScore -> endGame(gui, "Вы обыграли дилера!", betAmount * 2)
+                    playerScore == dealerScore -> endGame(gui, "Ничья. Ваша ставка возвращена.", betAmount)
+                    else -> endGame(gui, "Победил дилер. Повезёт в следующий раз.", 0.0)
                 }
                 setupItems(gui)
                 dealerCancel?.run()
@@ -207,8 +207,8 @@ class BlackjackSession(
         settled = true
         plugin.blackjackManager.unregisterSession(player.uniqueId)
         val resultItem = ItemBuilder.from(if (payout > betAmount) Material.DIAMOND else if (payout == betAmount) Material.GOLD_INGOT else Material.COAL)
-            .name(plugin.format(if (payout > betAmount) "<#00FF7F><bold>VICTORY!</bold>" else if (payout == betAmount) "<#FFD700><bold>TIE</bold>" else "<#FF5555><bold>DEFEAT</bold>"))
-            .lore(plugin.format("<white>$reason"), plugin.format("<gray>Final payout: <#FFD700>$$payout"))
+            .name(plugin.format(if (payout > betAmount) "<#00FF7F><bold>ПОБЕДА!</bold>" else if (payout == betAmount) "<#FFD700><bold>НИЧЬЯ</bold>" else "<#FF5555><bold>ПОРАЖЕНИЕ</bold>"))
+            .lore(plugin.format("<white>$reason"), plugin.format("<gray>Итоговая выплата: <#FFD700>$$payout"))
             .asGuiItem()
 
         gui.setItem(22, resultItem)
@@ -236,7 +236,7 @@ class BlackjackSession(
         if (settled) return StartupRefundResult.ALREADY_SETTLED
         val refunded = plugin.economyManager.depositPlayer(player, betAmount)?.transactionSuccess() == true
         if (!refunded) {
-            plugin.logger.severe("Failed to refund blackjack bet $betAmount to ${player.name} after game startup failed.")
+            plugin.logger.severe("Не удалось вернуть ставку $betAmount игроку ${player.name} после сбоя запуска игры.")
             return StartupRefundResult.FAILED
         }
         settled = true
@@ -247,7 +247,7 @@ class BlackjackSession(
     fun refundOnShutdown() {
         if (settled) return
         if (plugin.economyManager.depositPlayer(player, betAmount)?.transactionSuccess() != true) {
-            plugin.logger.severe("Failed to refund blackjack bet $betAmount to ${player.name} during shutdown.")
+            plugin.logger.severe("Не удалось вернуть ставку $betAmount игроку ${player.name} при выключении сервера.")
             return
         }
         settled = true

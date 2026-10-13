@@ -28,7 +28,7 @@ class ScratchMenu(
     @Volatile private var locked = false
 
     fun open() {
-        val titleRaw = config.getString("title", "<#FFD700><bold>🎟 SCRATCH CARD {tier} 🎟</bold>")
+        val titleRaw = config.getString("title", "<#FFD700><bold>🎟 СКРЕТЧ-КАРТА {tier} 🎟</bold>")
             .replace("{tier}", tier.displayName)
         val gui = Gui.gui()
             .title(plugin.format(titleRaw))

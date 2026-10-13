@@ -15,7 +15,7 @@ abstract class BaseMenu(val plugin: CasinoPlugin, val configName: String) {
      */
     protected fun buildGui(rows: Int = config.getInt("rows", 3)): Gui {
         val gui = Gui.gui()
-            .title(plugin.format(config.getString("title", "Menu")))
+            .title(plugin.format(config.getString("title", "Меню")))
             .rows(rows)
             .create()
 

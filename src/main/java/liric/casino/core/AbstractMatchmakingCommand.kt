@@ -74,16 +74,16 @@ abstract class AbstractMatchmakingCommand(
 
     protected open fun sendHelp(player: Player) {
         player.sendMessage(plugin.messages.get("general.command-separator"))
-        player.sendMessage(plugin.format(" <#00FFFF>⬛ <gold><bold>$gameName — Help</bold>"))
+        player.sendMessage(plugin.format(" <#00FFFF>⬛ <gold><bold>$gameName — Справка</bold>"))
         player.sendMessage(plugin.messages.get("general.command-separator"))
-        player.sendMessage(plugin.format(" <#FFB400>/$gameId create <amount> <dark_gray>— <gray>Create a game"))
-        player.sendMessage(plugin.format(" <#FFB400>/$gameId join <player> <dark_gray>— <gray>Join a game"))
-        player.sendMessage(plugin.format(" <#FFB400>/$gameId cancel <dark_gray>— <gray>Cancel your open game"))
+        player.sendMessage(plugin.format(" <#FFB400>/$gameId create <сумма> <dark_gray>— <gray>Создать игру"))
+        player.sendMessage(plugin.format(" <#FFB400>/$gameId join <игрок> <dark_gray>— <gray>Присоединиться к игре"))
+        player.sendMessage(plugin.format(" <#FFB400>/$gameId cancel <dark_gray>— <gray>Отменить открытую игру"))
         
         val lines = getOpenGameLines()
         if (lines.isNotEmpty()) {
             player.sendMessage(plugin.format("<dark_gray>─────────────────────────────────────────────"))
-            player.sendMessage(plugin.format(" <gray>Open games:"))
+            player.sendMessage(plugin.format(" <gray>Открытые игры:"))
             lines.take(5).forEach { player.sendMessage(plugin.format(it)) }
         }
         player.sendMessage(plugin.messages.get("general.command-separator"))

@@ -4,7 +4,7 @@ import liric.casino.CasinoPlugin
 import liric.casino.core.AbstractMatchmakingCommand
 import org.bukkit.entity.Player
 
-class RPSCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin, "rps", "ROCK PAPER SCISSORS") {
+class RPSCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin, "rps", "КАМЕНЬ, НОЖНИЦЫ, БУМАГА") {
 
     override fun openLobby(player: Player) {
         MatchmakingLobbyGUI(plugin, player, "rps").open()

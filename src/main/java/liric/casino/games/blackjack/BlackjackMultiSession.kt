@@ -47,7 +47,7 @@ class BlackjackMultiSession(
         playersData.forEach { data ->
             val player = Bukkit.getPlayer(data.uuid)
             if (player != null) {
-                val titleRaw = config.getString("multi-title", "<#FF0000><bold>♠ VIP BLACKJACK TABLE ♠</bold></#FF0000>")!!
+                val titleRaw = config.getString("multi-title", "<#FF0000><bold>♠ VIP-СТОЛ БЛЭКДЖЕКА ♠</bold></#FF0000>")!!
                 val gui = Gui.gui().title(plugin.format(titleRaw))
                     .rows(6).disableAllInteractions().disableItemTake().disableItemSwap().disableItemDrop().disableItemPlace().create()
                 playerGuis[data.uuid] = gui
@@ -96,7 +96,7 @@ class BlackjackMultiSession(
             val dealerScore = BlackjackLogic.calculateScore(dealerHand)
             val dStatus = if (!isDealerTurn) "?" else dealerScore.toString()
             val dealerMat = config.getMaterial("items.dealer-head.material", Material.SKELETON_SKULL)
-            val dealerName = config.getString("items.dealer-head.name", "<#FF5555><bold>DEALER</bold>")
+            val dealerName = config.getString("items.dealer-head.name", "<#FF5555><bold>ДИЛЕР</bold>")
             val dealerLore = config.getStringList("items.dealer-head.lore").map { plugin.format(it.replace("{score}", dStatus)) }
             gui.setItem(4, ItemBuilder.from(dealerMat).name(plugin.format(dealerName)).lore(dealerLore).asGuiItem())
 
@@ -112,7 +112,7 @@ class BlackjackMultiSession(
 
             var displaySlot = 19
             playersData.forEachIndexed { idx, pData ->
-                val pName = Bukkit.getOfflinePlayer(pData.uuid).name ?: "Unknown"
+                val pName = Bukkit.getOfflinePlayer(pData.uuid).name ?: "Неизвестный игрок"
                 val pScore = BlackjackLogic.calculateScore(pData.hand)
 
                 val headMatConfig = config.getMaterial("items.multi-player-head.material", Material.PLAYER_HEAD)
@@ -143,7 +143,7 @@ class BlackjackMultiSession(
 
             val myScore = BlackjackLogic.calculateScore(data.hand)
             val yourCardsMat = config.getMaterial("items.your-cards.material", Material.DIAMOND)
-            val yourCardsName = config.getString("items.your-cards.name", "<#00FFFF><bold>YOUR CARDS</bold>")
+            val yourCardsName = config.getString("items.your-cards.name", "<#00FFFF><bold>ВАШИ КАРТЫ</bold>")
             val yourCardsLore = config.getStringList("items.your-cards.lore").map { plugin.format(it.replace("{score}", myScore.toString())) }
             gui.setItem(31, ItemBuilder.from(yourCardsMat)
                 .name(plugin.format(yourCardsName))
@@ -179,7 +179,7 @@ class BlackjackMultiSession(
 
                 if (data.hand.size == 2) {
                     val doubleMat = config.getMaterial("items.double.material", Material.GOLD_BLOCK)
-                    val doubleName = config.getString("items.double.name", "<#FFD700><bold>💰 DOUBLE DOWN</bold>")
+                    val doubleName = config.getString("items.double.name", "<#FFD700><bold>💰 УДВОИТЬ СТАВКУ</bold>")
                     val doubleLore = config.getStringList("items.double.lore").map { plugin.format(it.replace("{bet}", data.bet.toString())) }
                     
                     val doubleBtn = ItemBuilder.from(doubleMat).name(plugin.format(doubleName)).lore(doubleLore).asGuiItem {
@@ -193,7 +193,7 @@ class BlackjackMultiSession(
                             data.status = if (BlackjackLogic.calculateScore(data.hand) > 21) PlayerStatus.BUSTED else PlayerStatus.STOOD
                             advanceToNextValidTurn()
                         } else {
-                            player.sendMessage(plugin.format("<red>You don't have enough money to double down."))
+                            player.sendMessage(plugin.format("<red>Недостаточно денег, чтобы удвоить ставку."))
                         }
                     }
                     gui.setItem(49, doubleBtn)

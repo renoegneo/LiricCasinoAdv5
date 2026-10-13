@@ -53,7 +53,7 @@ class SlotManager(private val plugin: CasinoPlugin) {
             }
         }
         if (loaded > 0) {
-            val msg = plugin.messagesConfig.getString("slots-extra.loaded", "<#00FF7F>Loaded {count} 777 Machines from data.yml.</#00FF7F>")!!
+            val msg = plugin.messagesConfig.getString("slots-extra.loaded", "<#00FF7F>Загружено игровых автоматов: {count} (из data.yml).</#00FF7F>")!!
             plugin.server.consoleSender.sendMessage(plugin.format(msg.replace("{count}", loaded.toString())))
         }
     }
@@ -81,9 +81,9 @@ class SlotManager(private val plugin: CasinoPlugin) {
         textDisplay.persistentDataContainer.set(slotKey, PersistentDataType.BYTE, 1.toByte())
 
         val maxMult = registry.items.maxOfOrNull { it.multiplier } ?: 100.0
-        val holoText = plugin.menuConfig("slots.yml").getString("title", "<#FFB400><bold>🎰 777 MACHINE 🎰</bold>") +
-                "<br><#E0E0E0>Click to play</#E0E0E0>" +
-                "<br><#00FF7F>Win up to x${maxMult.toInt()}!</#00FF7F>"
+        val holoText = plugin.menuConfig("slots.yml").getString("title", "<#FFB400><bold>🎰 АВТОМАТ 777 🎰</bold>") +
+            "<br><#E0E0E0>Нажмите, чтобы сыграть</#E0E0E0>" +
+            "<br><#00FF7F>Выигрыш до x${maxMult.toInt()}!</#00FF7F>"
 
         textDisplay.text(plugin.format(holoText))
         textDisplay.billboard = Display.Billboard.CENTER
@@ -111,9 +111,9 @@ class SlotManager(private val plugin: CasinoPlugin) {
                     textDisplay.persistentDataContainer.set(slotKey, PersistentDataType.BYTE, 1.toByte())
 
                     val maxMult = registry.items.maxOfOrNull { it.multiplier } ?: 100.0
-                    val holoText = plugin.menuConfig("slots.yml").getString("title", "<#FFB400><bold>🎰 777 MACHINE 🎰</bold>") +
-                            "<br><#E0E0E0>Click to play</#E0E0E0>" +
-                            "<br><#00FF7F>Win up to x${maxMult.toInt()}!</#00FF7F>"
+                    val holoText = plugin.menuConfig("slots.yml").getString("title", "<#FFB400><bold>🎰 АВТОМАТ 777 🎰</bold>") +
+                            "<br><#E0E0E0>Нажмите, чтобы сыграть</#E0E0E0>" +
+                            "<br><#00FF7F>Выигрыш до x${maxMult.toInt()}!</#00FF7F>"
 
                     textDisplay.text(plugin.format(holoText))
                     textDisplay.billboard = Display.Billboard.CENTER

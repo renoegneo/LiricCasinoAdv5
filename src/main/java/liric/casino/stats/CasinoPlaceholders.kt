@@ -33,7 +33,7 @@ class CasinoPlaceholders(private val plugin: CasinoPlugin) : PlaceholderExpansio
             "roulette_wins"        -> stats.rouletteWins.toString()
             "roulette_losses"      -> stats.rouletteLosses.toString()
             "roulette_winrate"     -> stats.rouletteBets.let { total ->
-                if (total > 0) "${(stats.rouletteWins * 100 / total)}%" else "N/A"
+                if (total > 0) "${(stats.rouletteWins * 100 / total)}%" else "Н/Д"
             }
 
 
@@ -50,7 +50,7 @@ class CasinoPlaceholders(private val plugin: CasinoPlugin) : PlaceholderExpansio
             "bj_losses"            -> stats.bjLosses.toString()
             "bj_blackjacks"        -> stats.bjBlackjacks.toString()
             "bj_winrate"           -> stats.bjGames.let { g ->
-                if (g > 0) "${(stats.bjWins * 100 / g)}%" else "N/A"
+                if (g > 0) "${(stats.bjWins * 100 / g)}%" else "Н/Д"
             }
 
 
