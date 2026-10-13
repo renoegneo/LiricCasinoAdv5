@@ -1,21 +1,21 @@
 # ═══════════════════════════════════════════════════════
-#   menus/blackjack_bet.yml — Blackjack bet menu
+#   menus/blackjack_bet.yml — меню ставки в блэкджеке
 # ═══════════════════════════════════════════════════════
 
-title-solo: "<black><bold>Bet ➔ Solo"
-title-multi: "<black><bold>Bet ➔ Multiplayer"
+title-solo: "<black><bold>Ставка ➔ Одиночная игра"
+title-multi: "<black><bold>Ставка ➔ Игра с игроками"
 rows: 3
 
 decorations:
-  # Upper line
+  # Верхний ряд
   - material: BLACK_STAINED_GLASS_PANE
     name: " "
     slots: [0, 1, 2, 3, 4, 5, 6, 7, 8]
-  # Side bars
+  # Боковые панели
   - material: GRAY_STAINED_GLASS_PANE
     name: " "
     slots: [9, 17]
-  # Lower line
+  # Нижний ряд
   - material: BLACK_STAINED_GLASS_PANE
     name: " "
     slots: [18, 19, 20, 21, 23, 24, 25, 26]
@@ -62,15 +62,15 @@ buttons:
   custom-bet:
     slot: 4
     material: PAPER
-    name: "<#FFD700>Custom Bet"
+    name: "<#FFD700>Своя ставка"
 
   confirm:
     slot: 13
     material: EMERALD_BLOCK
-    name: "<#00FF7F><bold>✔ START PLAYING ✔</bold>"
-    lore-bet: "<gray>Initial bet: <#FFD700>${amount}"
+    name: "<#00FF7F><bold>✔ НАЧАТЬ ИГРУ ✔</bold>"
+    lore-bet: "<gray>Начальная ставка: <#FFD700>${amount}"
 
   max-bet:
     slot: 22
     material: GOLD_BLOCK
-    name: "<#FFD700><bold>✦ MAX BET ({max}) ✦</bold>"
+    name: "<#FFD700><bold>✦ МАКСИМАЛЬНАЯ СТАВКА ({max}) ✦</bold>"

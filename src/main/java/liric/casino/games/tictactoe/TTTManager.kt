@@ -154,7 +154,7 @@ class TTTManager(plugin: CasinoPlugin) : AbstractMatchmakingManager<TTTSession>(
             val winner = Bukkit.getPlayer(winnerId)
             if (winner != null) {
                 processWin(winner, session.betAmount)
-                val msg = plugin.messagesConfig.getString("ttt-extra.opponent-disconnected", "<red>Your opponent disconnected. <green>You won the bet automatically!")!!
+                val msg = plugin.messagesConfig.getString("ttt-extra.opponent-disconnected", "<red>Соперник отключился. <green>Вы автоматически выиграли ставку!")!!
                 winner.sendMessage(plugin.format(msg.replace("{prefix}", plugin.messagesConfig.getString("prefix", "")!!)))
                 winner.playSound(winner.location, Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f)
                 winner.closeInventory()

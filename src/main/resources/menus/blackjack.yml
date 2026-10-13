@@ -1,5 +1,6 @@
-title: "<#FF0000><bold>♠ BLACKJACK 21 ♠</bold></#FF0000>"
-multi-title: "<#FF0000><bold>♠ MESA VIP BLACKJACK ♠</bold></#FF0000>"
+title: "<#FF0000><bold>♠ БЛЭКДЖЕК 21 ♠</bold></#FF0000>"
+multi-title: "<#FF0000><bold>♠ VIP-СТОЛ БЛЭКДЖЕКА ♠</bold></#FF0000>"
+rows: 6
 
 items:
   filler:
@@ -10,36 +11,36 @@ items:
     name: " "
   dealer-head:
     material: SKELETON_SKULL
-    name: "<#FF5555><bold>DEALER</bold>"
+    name: "<#FF5555><bold>ДИЛЕР</bold>"
     lore:
-      - "<gray>Puntaje: <white>{score}"
+      - "<gray>Очки: <white>{score}"
   player-head:
     material: PLAYER_HEAD
-    name: "<#00FF7F><bold>TU MANO</bold>"
+    name: "<#00FF7F><bold>ВАШИ КАРТЫ</bold>"
     lore:
-      - "<gray>Puntaje: <white>{score}"
-      - "<gray>Apuesta: <#FFD700>${bet}"
+      - "<gray>Очки: <white>{score}"
+      - "<gray>Ставка: <#FFD700>${bet}"
   multi-player-head:
     material: PLAYER_HEAD
     name: "{color}<bold>{name}"
     lore:
-      - "<gray>Apuesta: <#FFD700>${bet}"
-      - "<gray>Puntos: <white>{score}"
+      - "<gray>Ставка: <#FFD700>${bet}"
+      - "<gray>Очки: <white>{score}"
       - "{state}"
   your-cards:
     material: DIAMOND
-    name: "<#00FFFF><bold>TUS CARTAS</bold>"
+    name: "<#00FFFF><bold>ВАШИ КАРТЫ</bold>"
     lore:
-      - "<gray>Total: <white>{score}"
+      - "<gray>Всего очков: <white>{score}"
   hit:
     material: LIME_DYE
-    name: "<#00FF7F><bold>✚ PEDIR CARTA (Hit)</bold>"
+    name: "<#00FF7F><bold>✚ ВЗЯТЬ КАРТУ</bold>"
   stand:
     material: RED_DYE
-    name: "<#FF5555><bold>✋ PLANTARSE (Stand)</bold>"
+    name: "<#FF5555><bold>✋ ХВАТИТ</bold>"
   double:
     material: GOLD_BLOCK
-    name: "<#FFD700><bold>💰 DOBLAR (Double Down)</bold>"
+    name: "<#FFD700><bold>💰 УДВОИТЬ СТАВКУ</bold>"
     lore:
-      - "<gray>Duplica tu apuesta (<#FFD700>${bet}</#FFD700>), recibes"
-      - "<gray>EXACTAMENTE 1 carta y te plantas."
+      - "<gray>Удвойте ставку (<#FFD700>${bet}</#FFD700>), возьмите"
+      - "<gray>РОВНО 1 карту и завершите ход."

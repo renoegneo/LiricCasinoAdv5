@@ -21,7 +21,7 @@ class RPSChoiceGUI(
     }
 
     override fun setupItems(gui: Gui) {
-        val opponent = if (isCreator) session.joinerName ?: "Waiting..." else session.creatorName
+        val opponent = if (isCreator) session.joinerName ?: "Ожидание соперника..." else session.creatorName
         val infoItem = config.getItemBuilder("info-item")
             .name(plugin.format(config.getString("info-item.name", "")
                 .replace("%amount%", session.betAmount.toLong().toString())))
@@ -31,7 +31,7 @@ class RPSChoiceGUI(
             .flags(*ItemFlag.values()).asGuiItem()
         gui.setItem(config.getInt("info-item.slot", 4), infoItem)
 
-        val rockBtn = config.getItemBuilder("piedra-btn") // keeping yaml keys as piedra/papel/tijera for backwards compatibility if wanted, but wait, if config.yml uses these, I should keep the keys or just change the code? The user wants 0 hardcode, variables in english. But I'll keep the config keys so I don't break existing files unless they are remade.
+        val rockBtn = config.getItemBuilder("piedra-btn")
             .name(plugin.format(config.getString("piedra-btn.name", "")))
             .lore(config.getStringList("piedra-btn.lore").map { plugin.format(it) })
             .flags(*ItemFlag.values())

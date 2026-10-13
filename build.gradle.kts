@@ -14,23 +14,23 @@ buildscript {
 
 plugins {
     java
-    kotlin("jvm") version "2.1.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    kotlin("jvm") version "2.3.20"
+    id("com.gradleup.shadow") version "9.6.1"
     id("maven-publish")
 }
 
 group = "liric.mistaken" // Actualizado a tu nuevo package
-version = "2.0.4"
+version = "2.0.5"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21)
+        jvmTarget.set(JvmTarget.JVM_25)
     }
 }
 
@@ -49,8 +49,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-    implementation("dev.triumphteam:triumph-gui:3.1.13")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.+")
+    implementation("dev.triumphteam:triumph-gui-paper:3.1.13")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude(group = "org.bukkit", module = "bukkit")
     }
@@ -63,7 +63,10 @@ dependencies {
     implementation("org.mariadb.jdbc:mariadb-java-client:3.4.1")
 
     // Paper ya incluye Adventure y MiniMessage nativamente
-    compileOnly("net.kyori:adventure-text-minimessage:4.17.0")
+
+//    compileOnly("net.kyori:adventure-text-minimessage:4.17.0"
+//    paper already gives minimassege built-in
+
     compileOnly("org.jetbrains:annotations:24.0.1")
 }
 
@@ -80,8 +83,8 @@ tasks {
 
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        sourceCompatibility = "21"
-        targetCompatibility = "21"
+        sourceCompatibility = "25"
+        targetCompatibility = "25"
     }
 
     processResources {
@@ -120,6 +123,11 @@ tasks.register("verifyPluginJar") {
         }
         check(!entries.matching { include("org/mariadb/jdbc/Driver.class") }.isEmpty) {
             "MariaDB JDBC driver is missing from ${jarFile.name}"
+        }
+        check(!entries.matching {
+            include("liric/mistaken/libs/gui/builder/item/BukkitNameLoreHandler.class")
+        }.isEmpty) {
+            "Paper-compatible GUI item metadata handler is missing from ${jarFile.name}"
         }
     }
 }

@@ -45,13 +45,13 @@ abstract class AbstractGameManager<S>(val plugin: CasinoPlugin, val gameId: Stri
      */
     fun takeBet(player: Player, amount: Double): Boolean {
         if (!plugin.economyManager.has(player, amount)) {
-            player.sendMessage(plugin.messages.get("general.no-money", "amount" to amount.toString()))
+            player.sendMessage(plugin.messages.get("general.no-funds"))
             return false
         }
         val response = plugin.economyManager.withdraw(player, amount)
         if (response?.transactionSuccess() != true) {
-            player.sendMessage(plugin.messages.get("general.no-money", "amount" to amount.toString()))
-            plugin.logger.warning("Could not withdraw $amount from ${player.name}: ${response?.errorMessage ?: "no economy response"}")
+            player.sendMessage(plugin.messages.get("general.no-funds"))
+            plugin.logger.warning("Не удалось списать $amount у игрока ${player.name}: ${response?.errorMessage ?: "экономическая система не вернула ответ"}")
             return false
         }
         return true
@@ -68,7 +68,7 @@ abstract class AbstractGameManager<S>(val plugin: CasinoPlugin, val gameId: Stri
         plugin.economyManager.deposit(player, finalWinnings)
         
         if (tax > 0) {
-            player.sendMessage(plugin.messages.get("general.tax-deducted", 
+            player.sendMessage(plugin.messages.get("general.tax-charged",
                 "amount" to finalWinnings.toString(), 
                 "tax" to tax.toString()
             ))

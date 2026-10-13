@@ -15,9 +15,9 @@ import kotlin.text.clear
 import kotlin.text.toLong
 
 enum class BetColor(val displayName: String, val chatColor: String) {
-    RED("<#FF5555><bold>RED</bold></#FF5555>", "<#FF5555>"),
-    BLACK("<dark_gray><bold>BLACK</bold></dark_gray>", "<dark_gray>"),
-    GREEN("<#00FF7F><bold>GREEN</bold></#00FF7F>", "<#00FF7F>")
+    RED("<#FF5555><bold>КРАСНОЕ</bold></#FF5555>", "<#FF5555>"),
+    BLACK("<dark_gray><bold>ЧЁРНОЕ</bold></dark_gray>", "<dark_gray>"),
+    GREEN("<#00FF7F><bold>ЗЕЛЁНОЕ</bold></#00FF7F>", "<#00FF7F>")
 }
 
 sealed class BetType {
@@ -48,9 +48,9 @@ class RouletteGame(private val plugin: CasinoPlugin) {
 
 
     fun updateStatusHologram() {
-        val text = "<#FF00FF><bold>🌀 ROULETTE 🌀</bold></#FF00FF><br>" +
-                "<#E0E0E0>Max Bet: <#00FF7F>$${maxBet().toLong()}</#00FF7F></#E0E0E0><br>" +
-                "<#FFB400>Current Players: ${bets.size}</#FFB400>"
+        val text = "<#FF00FF><bold>🌀 РУЛЕТКА 🌀</bold></#FF00FF><br>" +
+                "<#E0E0E0>Максимальная ставка: <#00FF7F>$${maxBet().toLong()}</#00FF7F></#E0E0E0><br>" +
+                "<#FFB400>Игроков: ${bets.size}</#FFB400>"
         plugin.rouletteManager.updateHolograms(text)
     }
 
@@ -81,8 +81,8 @@ class RouletteGame(private val plugin: CasinoPlugin) {
             plugin.statsManager.recordGameUse(player.uniqueId, "roulette")
 
             val targetName = when (betType) {
-                is BetType.Number -> "on number ${getNumberColor(betType.num).chatColor}<bold>${betType.num}</bold>"
-                is BetType.Color  -> "on color ${betType.color.chatColor}${betType.color.displayName}"
+                is BetType.Number -> "на число ${getNumberColor(betType.num).chatColor}<bold>${betType.num}</bold>"
+                is BetType.Color  -> "на цвет ${betType.color.chatColor}${betType.color.displayName}"
             }
             player.sendMessage(msg("roulette.bet-placed", "amount" to amount.toString(), "target" to targetName))
             player.playSound(player.location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f)
@@ -116,8 +116,8 @@ class RouletteGame(private val plugin: CasinoPlugin) {
             }
 
             val holo = "<#FF00FF><bold>🌀 ROULETTE 🌀</bold></#FF00FF><br>" +
-                    "<#E0E0E0>Max Bet: <#00FF7F>$${maxBet().toLong()}</#00FF7F></#E0E0E0><br>" +
-                    "<#FF5555>Spinning in $seconds seconds!</#FF5555>"
+                    "<#E0E0E0>Максимальная ставка: <#00FF7F>$${maxBet().toLong()}</#00FF7F></#E0E0E0><br>" +
+                    "<#FF5555>Запуск через $seconds с!</#FF5555>"
             plugin.rouletteManager.updateHolograms(holo.replace("\n", "<br>"))
             seconds--
         }
@@ -144,9 +144,9 @@ class RouletteGame(private val plugin: CasinoPlugin) {
         state = GameState.SPINNING
         plugin.server.broadcast(msg("roulette.spinning"))
 
-        val spinHolo = "<#FF00FF><bold>🌀 ROULETTE 🌀</bold></#FF00FF><br>" +
-                "<#E0E0E0>No more bets!</#E0E0E0><br>" +
-                "<#FFB400><bold>Spinning!</bold></#FFB400>"
+        val spinHolo = "<#FF00FF><bold>🌀 РУЛЕТКА 🌀</bold></#FF00FF><br>" +
+                "<#E0E0E0>Ставки больше не принимаются!</#E0E0E0><br>" +
+                "<#FFB400><bold>Вращение!</bold></#FFB400>"
         plugin.rouletteManager.setSpinningHologram(spinHolo)
 
         val resultNumber = Random.nextInt(0, 37)
@@ -191,7 +191,7 @@ class RouletteGame(private val plugin: CasinoPlugin) {
                         plugin.messages.getRaw("roulette.win-booster").replace("{booster}", booster.toString())
                     else ""
 
-                    val taxMsg = if (tax > 0) " <gray>(Tax: <red>-$${String.format("%.0f", tax * booster)}</red>)</gray>" else ""
+                    val taxMsg = if (tax > 0) " <gray>(налог: <red>-$${String.format("%.0f", tax * booster)}</red>)</gray>" else ""
                     player.sendMessage(msg("roulette.win",
                         "amount"  to String.format("%.0f", finalWin),
                         "booster" to bMsg + taxMsg

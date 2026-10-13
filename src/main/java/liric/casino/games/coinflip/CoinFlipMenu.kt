@@ -84,7 +84,7 @@ class CoinFlipMenu(
 
 
         _inv = Bukkit.createInventory(this, 45, plugin.format(
-            "<dark_gray><bold>🪙 CoinFlip</bold></dark_gray>  <dark_gray>|</dark_gray>  <#FFD700>$amountFmt <dark_gray>vs <#FFD700>$amountFmt"
+            "<dark_gray><bold>🪙 Орёл или решка</bold></dark_gray>  <dark_gray>|</dark_gray>  <#FFD700>$amountFmt <dark_gray>против <#FFD700>$amountFmt"
         ))
         val inv = _inv
 
@@ -102,8 +102,8 @@ class CoinFlipMenu(
         inv.setItem(40, makeGlass(Material.YELLOW_STAINED_GLASS_PANE, "<#FFD700>▲"))
 
 
-        val creatorHead = makeSkull(session.creatorId, "<#FFD700><bold>${session.creatorName}", "<gray>Bet: <#FFD700>$amountFmt")
-        val joinerHead  = makeSkull(capturedJoinerId, "<#FF5555><bold>${session.joinerName}", "<gray>Bet: <#FF5555>$amountFmt")
+        val creatorHead = makeSkull(session.creatorId, "<#FFD700><bold>${session.creatorName}", "<gray>Ставка: <#FFD700>$amountFmt")
+        val joinerHead  = makeSkull(capturedJoinerId, "<#FF5555><bold>${session.joinerName}", "<gray>Ставка: <#FF5555>$amountFmt")
         inv.setItem(18, creatorHead)
         inv.setItem(26, joinerHead)
 
@@ -114,7 +114,7 @@ class CoinFlipMenu(
 
         val potItem = ItemStack(Material.GOLD_INGOT).also { s ->
             val m = s.itemMeta ?: return@also
-            m.displayName(plugin.format("<#FFD700><bold>💰 POT: ${formatAmount(session.betAmount * 2)}"))
+            m.displayName(plugin.format("<#FFD700><bold>💰 БАНК: ${formatAmount(session.betAmount * 2)}"))
             s.itemMeta = m
         }
         inv.setItem(31, potItem)
@@ -192,7 +192,7 @@ class CoinFlipMenu(
         val winnerName = if (winnerIsCreator) session.creatorName else session.joinerName!!
 
 
-        val gold = makeGlass(Material.GOLD_BLOCK, "<#FFD700>🏆 WINNER")
+        val gold = makeGlass(Material.GOLD_BLOCK, "<#FFD700>🏆 ПОБЕДИТЕЛЬ")
         for (slot in intArrayOf(3, 5, 12, 14)) {
             if (slot < inv.size) {
                 val g = ItemStack(Material.GOLD_BLOCK).also { s ->
@@ -206,7 +206,7 @@ class CoinFlipMenu(
         inv.setItem(13, winnerHead.clone().also { s ->
             val m = s.itemMeta ?: return@also
             m.displayName(plugin.format("<#FFD700><bold>🏆 ${winnerName}"))
-            m.lore(listOf(plugin.format("<#00FF7F>WON $amountFmt x2!")))
+            m.lore(listOf(plugin.format("<#00FF7F>ВЫИГРЫШ: $amountFmt x2!")))
             s.itemMeta = m
         })
 

@@ -98,7 +98,7 @@ class CasinoPlugin : JavaPlugin() {
 
     fun menuConfig(name: String): MenuConfig {
         val normalized = if (name.endsWith(".yml")) name else "$name.yml"
-        return menuConfigMap[normalized] ?: error("MenuConfig '$normalized' not loaded!")
+        return menuConfigMap[normalized] ?: error("Настройки меню '$normalized' не загружены!")
     }
 
     fun isGameEnabled(key: String): Boolean = config.getBoolean("$key.active", true)
@@ -113,7 +113,7 @@ class CasinoPlugin : JavaPlugin() {
     override fun onEnable() {
 
         if (isFolia()) {
-            logger.severe("CasinoLiric does not yet provide safe region-thread scheduling for Folia; disabling to protect active wagers.")
+            logger.severe("CasinoLiric пока не поддерживает безопасное планирование задач по регионам Folia; плагин отключается для защиты ставок.")
             server.pluginManager.disablePlugin(this)
             return
         }
@@ -147,7 +147,7 @@ class CasinoPlugin : JavaPlugin() {
 
         economyManager = EconomyManager(this)
         if (!economyManager.setupVault()) {
-            logger.severe("Vault not found or no economy plugin! Disabling...")
+            logger.severe("Vault или совместимый экономический плагин не найден. Плагин отключается...")
             server.pluginManager.disablePlugin(this)
             return
         }
@@ -157,7 +157,7 @@ class CasinoPlugin : JavaPlugin() {
         try {
             db.connect()
         } catch (e: Exception) {
-            logger.log(java.util.logging.Level.SEVERE, "Could not initialize the database; disabling CasinoLiric", e)
+            logger.log(java.util.logging.Level.SEVERE, "Не удалось подключить базу данных; CasinoLiric отключается", e)
             server.pluginManager.disablePlugin(this)
             return
         }
@@ -329,7 +329,7 @@ class CasinoPlugin : JavaPlugin() {
         server.consoleSender.sendMessage(format(
             "\n<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
             "  <#FFD700>Liric Casino <gray>v${pluginMeta.version}\n" +
-            "  <gray>Shutting down systems and cleaning up...\n" +
+            "  <gray>Остановка систем и очистка данных...\n" +
             "<dark_gray>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
         ))
     }
@@ -340,7 +340,7 @@ class CasinoPlugin : JavaPlugin() {
         val folia = isFolia()
         val platform = if (folia) "<light_purple><bold>Folia</bold></light_purple>" else "<aqua>Paper"
         val foliaLine = if (folia)
-            "<light_purple>  ✦ <white>Folia detected — <yellow>running in threaded-region mode"
+            "<light_purple>  ✦ <white>Обнаружена Folia — <yellow>режим потоков по регионам"
         else null
 
         val lines = buildList {
@@ -349,35 +349,35 @@ class CasinoPlugin : JavaPlugin() {
             add("<red>██     ██▀██ ███▄▄ ██ ███▄██ ██▀██ </red>")
             add("<red>▀█████ ██▀██ ▄▄██▀ ██ ██ ▀██ ▀███▀ </red>")
             add("")
-            add("<#FFD700>  Liric Casino <gray>v$v <dark_gray>| <gray>Platform: $platform")
+            add("<#FFD700>  Liric Casino <gray>v$v <dark_gray>| <gray>Платформа: $platform")
             if (foliaLine != null) {
                 add("<#FFB400>  $foliaLine")
             }
             add("")
-            add("  <gray>Loaded Modules:")
+            add("  <gray>Загруженные игры:")
             
             val modules = listOf(
-                "roulette" to "Roulette",
-                "blackjack" to "Blackjack",
-                "poker" to "Poker",
-                "slots" to "Slots",
-                "scratch" to "Scratch Cards",
-                "lottery" to "Lottery",
-                "coinflip" to "CoinFlip",
-                "rps" to "RPS",
-                "ttt" to "Tic Tac Toe",
-                "racing" to "Horse Racing"
+                "roulette" to "Рулетка",
+                "blackjack" to "Блэкджек",
+                "poker" to "Покер",
+                "slots" to "Игровые автоматы",
+                "scratch" to "Скретч-карты",
+                "lottery" to "Лотерея",
+                "coinflip" to "Орёл или решка",
+                "rps" to "Камень, ножницы, бумага",
+                "ttt" to "Крестики-нолики",
+                "racing" to "Скачки"
             )
             modules.forEach { (key, name) ->
                 if (isGameEnabled(key)) {
-                    add("    <dark_gray>▪ <gray>$name <dark_gray>» <#00FF7F>Active")
+                    add("    <dark_gray>▪ <gray>$name <dark_gray>» <#00FF7F>Включено")
                 }
             }
             if (config.getBoolean("taxes.enabled", false)) {
-                 add("    <dark_gray>▪ <gray>Tax System <dark_gray>» <#00FF7F>Active")
+                 add("    <dark_gray>▪ <gray>Налоги <dark_gray>» <#00FF7F>Включены")
             }
             add("")
-            add("  <#00FF7F>Plugin loaded and ready.</#00FF7F>")
+            add("  <#00FF7F>Плагин загружен и готов к работе.</#00FF7F>")
             add("")
         }
         lines.forEach { server.consoleSender.sendMessage(format(it)) }

@@ -167,14 +167,14 @@ class StatsManager(private val plugin: CasinoPlugin) {
 
 
     enum class TopMode(val sqlColumn: String, val label: String) {
-        GLOBAL("(roulette_won + slots_won + bj_won + scratch_won + lottery_won + coinflip_won)", "Global"),
-        RULETA("roulette_won", "Roulette"),
-        SLOTS("slots_won", "Slots"),
-        BLACKJACK("bj_won", "Blackjack"),
-        SCRATCH("scratch_won", "Scratch Card"),
-        LOTTERY("lottery_won", "Lottery"),
-        COINFLIP("coinflip_won", "CoinFlip"),
-        RACING("racing_won", "Horse Racing")
+        GLOBAL("(roulette_won + slots_won + bj_won + scratch_won + lottery_won + coinflip_won)", "Общий"),
+        RULETA("roulette_won", "Рулетка"),
+        SLOTS("slots_won", "Автоматы"),
+        BLACKJACK("bj_won", "Блэкджек"),
+        SCRATCH("scratch_won", "Скретч-карты"),
+        LOTTERY("lottery_won", "Лотерея"),
+        COINFLIP("coinflip_won", "Орёл или решка"),
+        RACING("racing_won", "Скачки")
     }
 
     fun getTopAsync(mode: TopMode, limit: Int = 10, callback: (List<TopEntry>) -> Unit) {
@@ -192,7 +192,7 @@ class StatsManager(private val plugin: CasinoPlugin) {
                         }
                     }
                 }
-            }.onFailure { plugin.logger.warning("StatsManager.getTop() error: ${it.message}") }
+            }.onFailure { plugin.logger.warning("Ошибка StatsManager.getTop(): ${it.message}") }
 
             SchedulerUtil.runGlobal(plugin) { callback(results) }
         }
@@ -246,7 +246,7 @@ class StatsManager(private val plugin: CasinoPlugin) {
             System.currentTimeMillis()
         )
             runCatching { plugin.db.upsert(sql, params); stats.dirty = false }
-                .onFailure { plugin.logger.warning("Stats save error for ${stats.name}: ${it.message}") }
+                .onFailure { plugin.logger.warning("Не удалось сохранить статистику игрока ${stats.name}: ${it.message}") }
         }
     }
 
@@ -260,7 +260,7 @@ class StatsManager(private val plugin: CasinoPlugin) {
                     if (rs.next()) return fromRS(uuid, rs)
                 }
             }
-        }.onFailure { plugin.logger.warning("Stats load error for $name: ${it.message}") }
+        }.onFailure { plugin.logger.warning("Не удалось загрузить статистику игрока $name: ${it.message}") }
         return PlayerStats(uuid, name)
     }
 

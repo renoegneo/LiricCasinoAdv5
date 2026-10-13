@@ -34,7 +34,7 @@ class LotteryGUI(
         val maxTickets = plugin.config.getInt("lottery.max-tickets-per-player", 5)
         val remaining = (maxTickets - myTicketsList.size).coerceAtLeast(0)
         val myTicketsStr = if (myTicketsList.isEmpty()) {
-            config.getString("no-tickets-format", "<gray>You don't have any tickets.")
+            config.getString("no-tickets-format", "<gray>У вас пока нет билетов.")
         } else {
             myTicketsList.joinToString(", ") { it.number.toString() }
         }

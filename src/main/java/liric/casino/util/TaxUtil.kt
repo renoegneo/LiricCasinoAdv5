@@ -18,7 +18,7 @@ object TaxUtil {
 
     fun taxMessage(plugin: CasinoPlugin, tax: Double): String {
         if (tax <= 0.0) return ""
-        val format = plugin.messagesConfig.getString("tax.format", " <gray>(Impuesto: <red>-$${tax}</red>)</gray>")!!
+        val format = plugin.messagesConfig.getString("tax.format", " <gray>(налог: <red>-\${tax}</red>)</gray>")!!
         return format.replace("{tax}", String.format("%.0f", tax))
     }
 }

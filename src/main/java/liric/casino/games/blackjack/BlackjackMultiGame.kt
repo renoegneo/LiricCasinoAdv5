@@ -19,24 +19,30 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
     val activePlayers = mutableMapOf<UUID, Double>()
     private var countdownTask: Runnable? = null
 
-    fun addPlayer(player: Player, betAmount: Double) {
+    fun addPlayer(player: Player, betAmount: Double): Boolean {
         if (state == MultiGameState.PLAYING) {
-            player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>The multiplayer game is already in progress. Wait for it to finish."))
-            return
+            player.sendMessage(plugin.format("<#FF0000>КАЗИНО</#FF0000> <gray>» <red>Игра уже началась. Дождитесь её окончания."))
+            return false
         }
 
         if (activePlayers.size >= maxPlayers) {
-            player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>The table is full."))
-            return
+            player.sendMessage(plugin.format("<#FF0000>КАЗИНО</#FF0000> <gray>» <red>Стол заполнен."))
+            return false
         }
 
         if (activePlayers.containsKey(player.uniqueId)) {
-            player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>You are already at the table."))
-            return
+            player.sendMessage(plugin.format("<#FF0000>КАЗИНО</#FF0000> <gray>» <red>Вы уже за этим столом."))
+            return false
+        }
+
+        if (plugin.economyManager.withdrawPlayer(player, betAmount)?.transactionSuccess() != true) {
+            player.sendMessage(plugin.messages.get("blackjack.no-funds"))
+            player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
+            return false
         }
 
         activePlayers[player.uniqueId] = betAmount
-        broadcast("<#00FF7F>${player.name}</#00FF7F> <gray>sat at the table with <#FFD700>$${betAmount}</#FFD700>. (${activePlayers.size}/$maxPlayers)")
+        broadcast("<#00FF7F>${player.name}</#00FF7F> <gray>занял место за столом со ставкой <#FFD700>$${betAmount}</#FFD700>. (${activePlayers.size}/$maxPlayers)")
 
         plugin.blackjackManager.updateHolograms()
 
@@ -46,17 +52,18 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
 
             countdownSeconds = 2
         }
+        return true
     }
 
 
     fun removePlayer(player: Player) {
         if (!activePlayers.containsKey(player.uniqueId)) {
-            player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>You are not at the multiplayer table."))
+            player.sendMessage(plugin.format("<#FF0000>КАЗИНО</#FF0000> <gray>» <red>Вы не за игровым столом."))
             return
         }
 
         if (state == MultiGameState.PLAYING) {
-            player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>The game has already started, you can't leave now!"))
+            player.sendMessage(plugin.format("<#FF0000>КАЗИНО</#FF0000> <gray>» <red>Игра уже началась, сейчас нельзя уйти!"))
             return
         }
 
@@ -66,8 +73,8 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
 
         plugin.economyManager.vault?.depositPlayer(player, betAmount)
 
-        player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <#00FF7F>You left the table. Your $${betAmount} was returned.</#00FF7F>"))
-        broadcast("<#FF5555>${player.name}</#FF5555> <gray>left the table. (${activePlayers.size}/$maxPlayers)")
+        player.sendMessage(plugin.format("<#FF0000>КАЗИНО</#FF0000> <gray>» <#00FF7F>Вы покинули стол. Ваша ставка $${betAmount} возвращена.</#00FF7F>"))
+        broadcast("<#FF5555>${player.name}</#FF5555> <gray>покинул стол. (${activePlayers.size}/$maxPlayers)")
 
         plugin.blackjackManager.updateHolograms()
 
@@ -100,7 +107,7 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
             }
 
             if (countdownSeconds == 15 || countdownSeconds <= 5) {
-                broadcast("<gray>The table starts dealing in <yellow>$countdownSeconds</yellow>s...")
+                broadcast("<gray>Игра начнётся через <yellow>$countdownSeconds</yellow> с...")
             }
             countdownSeconds--
         }
@@ -109,7 +116,7 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
     private fun startGame() {
         state = MultiGameState.PLAYING
         plugin.blackjackManager.updateHolograms()
-        broadcast("<#FFB400>NO MORE BETS! The Dealer starts dealing...</#FFB400>")
+        broadcast("<#FFB400>СТАВКИ БОЛЬШЕ НЕ ПРИНИМАЮТСЯ! Дилер раздаёт карты...</#FFB400>")
 
 
         val session = BlackjackMultiSession(plugin, activePlayers.toMap(), this)
@@ -137,7 +144,7 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
     }
 
     private fun broadcast(msg: String) {
-        val formatted = plugin.format("<#FF0000><bold>♠ BLACKJACK TABLE</bold></#FF0000> <gray>»</gray> $msg")
+        val formatted = plugin.format("<#FF0000><bold>♠ СТОЛ БЛЭКДЖЕКА</bold></#FF0000> <gray>»</gray> $msg")
         activePlayers.keys.forEach { uuid ->
             plugin.server.getPlayer(uuid)?.sendMessage(formatted)
             plugin.server.getPlayer(uuid)?.playSound(plugin.server.getPlayer(uuid)!!.location, Sound.BLOCK_NOTE_BLOCK_HAT, 1f, 1f)

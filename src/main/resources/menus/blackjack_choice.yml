@@ -1,8 +1,8 @@
 # ═══════════════════════════════════════════════════════
-#   menus/blackjack_choice.yml — Blackjack mode choice menu
+#   menus/blackjack_choice.yml — меню выбора режима блэкджека
 # ═══════════════════════════════════════════════════════
 
-title: "<black><bold>Ready to play?"
+title: "<black><bold>Готовы сыграть?"
 rows: 3
 
 decorations:
@@ -17,22 +17,22 @@ items:
   vs-house:
     slot: 11
     material: RED_DYE
-    name: "<#FF5555><bold>SOLO VS THE HOUSE</bold>"
+    name: "<#FF5555><bold>ОДИН ПРОТИВ ДИЛЕРА</bold>"
     lore:
-      - "<gray>Play by yourself against the Dealer quickly."
+      - "<gray>Сыграйте быструю партию против дилера."
 
   tutorial:
     slot: 13
     material: WRITTEN_BOOK
-    name: "<#FFB400><bold>📖 HOW TO PLAY (Guide)</bold>"
+    name: "<#FFB400><bold>📖 ПРАВИЛА ИГРЫ</bold>"
     lore:
-      - "<gray>Learn the rules and payouts of Blackjack."
+      - "<gray>Узнайте правила и размеры выплат."
 
   vs-players:
     slot: 15
     material: DIAMOND
-    name: "<#00FFFF><bold>MULTIPLAYER TABLE (Real)</bold>"
+    name: "<#00FFFF><bold>ИГРА С ИГРОКАМИ</bold>"
     lore:
-      - "<gray>Join the table with other players."
-      - "<gray>Everyone plays their own hands"
-      - "<gray>against the same Dealer in turns."
+      - "<gray>Присоединитесь к столу с другими игроками."
+      - "<gray>Каждый играет своей рукой"
+      - "<gray>против общего дилера по очереди."

@@ -1,10 +1,13 @@
-# CasinoLiric 🎰
-
-The ultimate casino plugin for Minecraft servers (Paper/Spigot). Designed to offer highly customizable minigames with a betting system integrated directly into your server's economy.
-
-Perfect for keeping your players engaged, spending money, and having fun!
+# CasinoLiric 🎰 (forked by renoegneo)
 
 ---
+## The changes ive made:
+*  It can run without spamming errors on paper 26.3 servers (tested only there)
+*  It is completely translated to Russian Language to make the experience of mine and my friends' a bit more comfortable
+*  Ive left some comments in English (LOCALIZATION.md) to let others adjust it somehow to their own language if they want to, but i dont plan to do it myself
+
+
+# The original Description:
 
 ## ✨ Key Features
 

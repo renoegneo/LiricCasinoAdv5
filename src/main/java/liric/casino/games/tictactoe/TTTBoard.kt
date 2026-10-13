@@ -29,12 +29,12 @@ class TTTBoard(
     private fun buildTitle(): String {
         val myMark = session.getMarkOf(player.uniqueId)
         val isMyTurn = session.currentTurn == player.uniqueId
-        val opp = if (player.uniqueId == session.creatorId) session.joinerName ?: "Waiting..." else session.creatorName
+        val opp = if (player.uniqueId == session.creatorId) session.joinerName ?: "Ожидание соперника..." else session.creatorName
         return if (isMyTurn) {
-            val format = plugin.messagesConfig.getString("ttt-extra.board-turn", "<#FFD700><bold>YOUR TURN</bold> <gray>| <white>vs {opp} <gray>| {mark}")!!
+            val format = plugin.messagesConfig.getString("ttt-extra.board-turn", "<#FFD700><bold>ВАШ ХОД</bold> <gray>| <white>соперник: {opp} <gray>| {mark}")!!
             format.replace("{opp}", opp).replace("{mark}", myMark.name)
         } else {
-            val format = plugin.messagesConfig.getString("ttt-extra.board-wait", "<white>{opp}'s <gray>turn | {mark}")!!
+            val format = plugin.messagesConfig.getString("ttt-extra.board-wait", "<white>Ход игрока {opp} <gray>| {mark}")!!
             format.replace("{opp}", opp).replace("{mark}", myMark.name)
         }
     }
@@ -77,7 +77,7 @@ class TTTBoard(
         }
 
         val myMark = session.getMarkOf(player.uniqueId)
-        val opp = if (player.uniqueId == session.creatorId) session.joinerName ?: "Waiting..." else session.creatorName
+        val opp = if (player.uniqueId == session.creatorId) session.joinerName ?: "Ожидание соперника..." else session.creatorName
         val turnStatusStr = if (isMyTurn) config.getString("turn-status-my-turn", "") else config.getString("turn-status-opp-turn", "")
 
         val infoItem = config.getItemBuilder("info-item")

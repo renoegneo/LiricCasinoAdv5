@@ -36,7 +36,7 @@ object ValidationUtil {
             val limitMsgRaw = plugin.messages.getRaw("general.limit-reached")
             if (limitMsgRaw.contains("[MISSING")) {
 
-                player.sendMessage(plugin.format("<#FF5555><bold>❌ Limit Reached!</bold> <gray>You have exhausted your $maxUses daily uses for ${gameName.replaceFirstChar { it.uppercase() }}."))
+                player.sendMessage(plugin.format("<#FF5555><bold>❌ Достигнут лимит!</bold> <gray>Вы исчерпали дневной лимит этой игры: $maxUses."))
             } else {
                 player.sendMessage(plugin.messages.get("general.limit-reached", "max" to maxUses.toString()))
             }
@@ -85,7 +85,7 @@ object ValidationUtil {
         if (amount < defaultMin) {
             val msgRaw = plugin.messages.getRaw("general.min-bet")
             if (msgRaw.contains("[MISSING")) {
-                player.sendMessage(plugin.format("<red>Minimum bet is $defaultMin.</red>"))
+                player.sendMessage(plugin.format("<red>Минимальная ставка — $defaultMin.</red>"))
             } else {
                 player.sendMessage(plugin.messages.get("general.min-bet", "min" to defaultMin.toLong().toString()))
             }
@@ -95,7 +95,7 @@ object ValidationUtil {
         if (amount > maxBet) {
             val msgRaw = plugin.messages.getRaw("general.max-bet")
             if (msgRaw.contains("[MISSING")) {
-                player.sendMessage(plugin.format("<red>Your maximum bet limit is $maxBet.</red>"))
+                player.sendMessage(plugin.format("<red>Максимальная ставка — $maxBet.</red>"))
             } else {
                 player.sendMessage(plugin.messages.get("general.max-bet", "max" to maxBet.toLong().toString()))
             }

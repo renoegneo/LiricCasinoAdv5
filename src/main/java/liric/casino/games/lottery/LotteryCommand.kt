@@ -37,7 +37,7 @@ class LotteryCommand(private val plugin: CasinoPlugin) : CommandExecutor, TabCom
 
             "forcestart" -> {
                 if (!sender.hasPermission("casino.admin")) { sender.sendMessage(msg("general.no-permission")); return true }
-                sender.sendMessage(plugin.format("<#FFB400>Forcing lottery draw..."))
+                sender.sendMessage(plugin.format("<#FFB400>Запуск розыгрыша лотереи..."))
                 manager.forceStart()
             }
 

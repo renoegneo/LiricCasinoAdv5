@@ -21,7 +21,7 @@ class RaceBetGUI(
 
     fun open() {
         val gui = Gui.gui()
-            .title(plugin.format(config.getString("title", "<#FFD700>🏇 <gold><bold>RACING — Choose your horse</bold>")))
+            .title(plugin.format(config.getString("title", "<#FFD700>🏇 <gold><bold>СКАЧКИ — Выберите лошадь</bold>")))
             .rows(config.getInt("rows", 5))
             .disableAllInteractions().disableItemTake().disableItemSwap().disableItemDrop().disableItemPlace()
             .create()

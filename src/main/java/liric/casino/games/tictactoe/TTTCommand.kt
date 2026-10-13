@@ -5,7 +5,7 @@ import liric.casino.core.AbstractMatchmakingCommand
 import org.bukkit.entity.Player
 import liric.casino.games.rps.MatchmakingLobbyGUI
 
-class TTTCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin, "ttt", "TIC TAC TOE") {
+class TTTCommand(plugin: CasinoPlugin) : AbstractMatchmakingCommand(plugin, "ttt", "КРЕСТИКИ-НОЛИКИ") {
 
     override fun openLobby(player: Player) {
         MatchmakingLobbyGUI(plugin, player, "ttt").open()

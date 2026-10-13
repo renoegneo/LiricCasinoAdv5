@@ -1,8 +1,8 @@
 # ═══════════════════════════════════════════════════════
-#   menus/slots.yml — 777 Slots Machine Menu
+#   menus/slots.yml — меню игрового автомата 777
 # ═══════════════════════════════════════════════════════
 
-title: "<#FFB400><bold>🎰 777 SLOTS 🎰</bold></#FFB400>"
+title: "<#FFB400><bold>🎰 АВТОМАТ 777 🎰</bold></#FFB400>"
 rows: 3
 
 decorations:
@@ -20,7 +20,7 @@ reel:
 
 spinning-indicator:
   material: BARRIER
-  name: "<#FF5555>Spinning..."
+  name: "<#FF5555>Вращение..."
 
 buttons:
   minus-big:
@@ -52,21 +52,21 @@ buttons:
   custom-bet:
     slot: 4
     material: PAPER
-    name: "<#FFD700>Custom Bet"
+    name: "<#FFD700>Своя ставка"
 
   spin:
     slot: 22
     material: TRIPWIRE_HOOK
-    name: "<#FFD700><bold>🎰 SPIN! 🎰</bold>"
-    lore-bet: "<gray>Current Bet: <#00FF7F>${amount}"
+    name: "<#FFD700><bold>🎰 КРУТИТЬ! 🎰</bold>"
+    lore-bet: "<gray>Текущая ставка: <#00FF7F>${amount}"
     lore-empty: ""
-    lore-tip: "<#FFB400>Match 3 items to win!"
+    lore-tip: "<#FFB400>Соберите 3 одинаковых предмета для выигрыша!"
 
   restart:
     slot: 26
     material: AMETHYST_SHARD
     hide-material: BLACK_STAINED_GLASS_PANE
-    name: "<#9966CC><bold>Try again?</bold>"
+    name: "<#9966CC><bold>Ещё раз?</bold>"
     lore:
-      - "<gray>Click to reset"
-      - "<gray>the reels."
+      - "<gray>Нажмите, чтобы сбросить"
+      - "<gray>барабаны."

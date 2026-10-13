@@ -46,18 +46,18 @@ class RouletteCommand(
                 }
                 "scale"      -> {
                     if (args.size < 2) {
-                        sender.sendMessage(plugin.format("<red>Usage: /roulette scale <value>"))
+                        sender.sendMessage(plugin.format("<red>Использование: /roulette scale <размер>"))
                         return true
                     }
                     val newScale = args[1].toFloatOrNull()
                     if (newScale == null || newScale <= 0) {
-                        sender.sendMessage(plugin.format("<red>Invalid scale value."))
+                        sender.sendMessage(plugin.format("<red>Неверное значение масштаба."))
                         return true
                     }
                     plugin.setMainConfigValue("roulette.block-scale", newScale.toDouble())
                     val radius = plugin.config.getDouble("roulette.radius", 5.5).toFloat()
                     plugin.rouletteManager.rescaleAll(newScale, radius)
-                    sender.sendMessage(plugin.format("<green>Roulette scale updated to $newScale. All active roulettes were updated."))
+                    sender.sendMessage(plugin.format("<green>Масштаб рулетки изменён на $newScale. Все активные рулетки обновлены."))
                 }
                 else         -> sender.sendMessage(msg("general.invalid-action"))
             }

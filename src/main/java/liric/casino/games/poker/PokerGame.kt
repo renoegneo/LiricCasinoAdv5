@@ -1,6 +1,7 @@
 package liric.casino.games.poker
 
 import liric.casino.CasinoPlugin
+import liric.casino.util.ColorUtil
 import liric.casino.util.SchedulerUtil
 import liric.casino.util.ValidationUtil
 import org.bukkit.Bukkit
@@ -41,7 +42,7 @@ class PokerGame(val plugin: CasinoPlugin) {
 
     fun addPlayer(player: Player) {
         if (state != PokerState.WAITING && state != PokerState.STARTING) {
-            player.sendMessage(plugin.format("$prefix <#FF5555>Game in progress. Wait!</#FF5555>"))
+            player.sendMessage(plugin.format("$prefix <#FF5555>Игра уже идёт. Подождите!</#FF5555>"))
             return
         }
         if (players.any { it.uuid == player.uniqueId }) return
@@ -53,11 +54,11 @@ class PokerGame(val plugin: CasinoPlugin) {
         if (plugin.economyManager.withdrawPlayer(player, entryFee)?.transactionSuccess() == true) {
             plugin.statsManager.recordGameUse(player.uniqueId, "poker")
             players.add(PokerPlayer(player.uniqueId, player.name, entryFee))
-            plugin.server.broadcast(plugin.format("$prefix <#00FF7F><#FFB400>${player.name}</#FFB400> joined Poker! (${players.size}/$maxPlayers)</#00FF7F>"))
+            plugin.server.broadcast(plugin.format("$prefix <#00FF7F><#FFB400>${player.name}</#FFB400> присоединился к покеру! (${players.size}/$maxPlayers)</#00FF7F>"))
             plugin.pokerManager.updateHolograms()
             checkLobby()
         } else {
-            player.sendMessage(plugin.format("$prefix <#FF5555>You need $$entryFee to join.</#FF5555>"))
+            player.sendMessage(plugin.format("$prefix <#FF5555>Для входа нужно $$entryFee.</#FF5555>"))
         }
     }
 
@@ -65,7 +66,7 @@ class PokerGame(val plugin: CasinoPlugin) {
         val pokerPlayer = players.find { it.uuid == player.uniqueId }
 
         if (pokerPlayer == null) {
-            player.sendMessage(plugin.format("$prefix <#FF5555>You are not at any Poker table.</#FF5555>"))
+            player.sendMessage(plugin.format("$prefix <#FF5555>Вы не за покерным столом.</#FF5555>"))
             return
         }
 
@@ -75,15 +76,15 @@ class PokerGame(val plugin: CasinoPlugin) {
             pokerPlayer.totalContributed = 0.0
             players.remove(pokerPlayer)
 
-            plugin.server.broadcast(plugin.format("$prefix <#FF5555><#FFB400>${player.name}</#FFB400> left the Poker table! (${players.size}/$maxPlayers)</#FF5555>"))
+            plugin.server.broadcast(plugin.format("$prefix <#FF5555><#FFB400>${player.name}</#FFB400> покинул покерный стол! (${players.size}/$maxPlayers)</#FF5555>"))
             plugin.pokerManager.updateHolograms()
-            player.sendMessage(plugin.format("$prefix <#00FF7F>You left the table. Your contribution was refunded.</#00FF7F>"))
+            player.sendMessage(plugin.format("$prefix <#00FF7F>Вы покинули стол. Ваш взнос возвращён.</#00FF7F>"))
         } else {
 
             if (!pokerPlayer.hasFolded) {
                 handleAction(player.uniqueId, "FOLD", 0.0)
             }
-            player.sendMessage(plugin.format("$prefix <#FF5555>You left the ongoing game (Auto-folded).</#FF5555>"))
+            player.sendMessage(plugin.format("$prefix <#FF5555>Вы покинули игру и автоматически сбросили карты.</#FF5555>"))
         }
 
 
@@ -104,7 +105,7 @@ class PokerGame(val plugin: CasinoPlugin) {
         task = SchedulerUtil.runGlobalTimer(plugin, 0L, 20L) {
             if (players.size < minPlayers) {
                 state = PokerState.WAITING
-                plugin.server.broadcast(plugin.format("$prefix <#FF5555>Not enough players. Start cancelled.</#FF5555>"))
+                plugin.server.broadcast(plugin.format("$prefix <#FF5555>Недостаточно игроков. Начало игры отменено.</#FF5555>"))
                 task?.run()
                 return@runGlobalTimer
             }
@@ -182,7 +183,7 @@ class PokerGame(val plugin: CasinoPlugin) {
         when (action) {
             "FOLD" -> {
                 player.hasFolded = true
-                Bukkit.getPlayer(player.uuid)?.sendMessage(plugin.format("$prefix <gray>You folded.</gray>"))
+                Bukkit.getPlayer(player.uuid)?.sendMessage(plugin.format("$prefix <gray>Вы сбросили карты.</gray>"))
             }
             "CALL" -> {
                 val callAmount = currentHighestBet - player.currentBet
@@ -274,7 +275,7 @@ class PokerGame(val plugin: CasinoPlugin) {
 
         if (activeParticipants.isEmpty()) {
             updateMenus()
-            endGame(PokerPlayer(UUID.randomUUID(), "Nobody"), "Mass Fold")
+            endGame(PokerPlayer(UUID.randomUUID(), "Никто"), "Все сбросили карты")
             return
         }
 
@@ -286,7 +287,7 @@ class PokerGame(val plugin: CasinoPlugin) {
         endGame(winners, HandEvaluator.getHandName(bestScore))
     }
 
-    private fun endGame(winnerInfo: PokerPlayer, handName: String = "Everyone folded") {
+    private fun endGame(winnerInfo: PokerPlayer, handName: String = "Все сбросили карты") {
         endGame(listOf(winnerInfo), handName)
     }
 
@@ -300,7 +301,7 @@ class PokerGame(val plugin: CasinoPlugin) {
                 Bukkit.getPlayer(winnerInfo.uuid)?.playSound(Bukkit.getPlayer(winnerInfo.uuid)!!.location, Sound.UI_TOAST_CHALLENGE_COMPLETE, 1f, 1f)
             }
             val names = eligible.joinToString(", ") { it.name }
-            val result = if (eligible.size == 1) "$names won Poker with $handName" else "$names split the Poker pot with $handName"
+            val result = if (eligible.size == 1) "$names победил в покере с комбинацией «$handName»" else "$names разделили банк в покере с комбинацией «$handName»"
             plugin.server.broadcast(plugin.format("$prefix <#00FF7F><bold>$result ($${pot.toLong()})!</bold></#00FF7F>"))
         }
         players.forEach { it.totalContributed = 0.0 }
@@ -318,7 +319,8 @@ class PokerGame(val plugin: CasinoPlugin) {
     private fun updateMenus() {
         players.forEach { p ->
             val bp = Bukkit.getPlayer(p.uuid)
-            if (bp != null && bp.openInventory.title.contains("TEXAS HOLD'EM")) {
+            val configuredTitle = plugin.menuConfig("poker.yml").getString("title", "<#FF0000><bold>♠ ТЕХАССКИЙ ХОЛДЕМ ♠</bold></#FF0000>")
+            if (bp != null && ColorUtil.stripColor(bp.openInventory.title) == ColorUtil.stripColor(configuredTitle)) {
 
                 PokerMenu(plugin, this, bp).updateExisting(bp)
             }

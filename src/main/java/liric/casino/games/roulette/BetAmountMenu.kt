@@ -30,7 +30,7 @@ class BetAmountMenu(
     private fun msg(key: String, vararg ph: Pair<String, String>) = plugin.messages.get(key, *ph)
 
     private val displayTargetName = when (target) {
-        is BetType.Number -> "Number ${target.num}"
+        is BetType.Number -> "Число ${target.num}"
         is BetType.Color  -> target.color.displayName
     }
 
@@ -40,7 +40,7 @@ class BetAmountMenu(
     }
 
     private val gui = Gui.gui()
-        .title(plugin.format(cfg.getString("title", "<black><bold>Bet ➔ {target}").replace("{target}", displayTargetName)))
+        .title(plugin.format(cfg.getString("title", "<black><bold>Ставка ➔ {target}").replace("{target}", displayTargetName)))
         .rows(cfg.getInt("rows", 3))
         .disableAllInteractions().disableItemTake().disableItemSwap().disableItemDrop().disableItemPlace()
         .create()
@@ -61,15 +61,15 @@ class BetAmountMenu(
 
         val customSlot = cfg.getInt("buttons.custom-bet.slot", 4)
         val customMat  = cfg.getMaterial("buttons.custom-bet.material", Material.PAPER)
-        val customName = cfg.getComponent("buttons.custom-bet.name", "<#FFD700>Custom Bet")
+        val customName = cfg.getComponent("buttons.custom-bet.name", "<#FFD700>Своя ставка")
 
         val customBtn = ItemBuilder.from(customMat)
             .name(customName)
-            .lore(plugin.format("<gray>Click to type amount in chat"))
+            .lore(plugin.format("<gray>Нажмите, чтобы ввести сумму в чат"))
             .flags(*ItemFlag.values())
             .asGuiItem {
                 gui.close(player)
-                player.sendMessage(plugin.format("<#FFD700><b>✍ Type the exact amount you want to bet:</b>"))
+                player.sendMessage(plugin.format("<#FFD700><b>✍ Введите точную сумму ставки в чат:</b>"))
 
                 plugin.economyManager.openCustomBetChat(player) { amount ->
                     if (amount in 0.0..absoluteMaxLimit) {
@@ -77,7 +77,7 @@ class BetAmountMenu(
                         setupMenu()
                         gui.open(player)
                     } else {
-                        player.sendMessage(plugin.format("<red>Invalid amount. Maximum is $absoluteMaxLimit"))
+                        player.sendMessage(plugin.format("<red>Неверная сумма. Максимальная ставка: $absoluteMaxLimit"))
                     }
                 }
             }
