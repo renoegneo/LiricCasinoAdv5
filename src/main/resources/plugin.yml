@@ -1,7 +1,7 @@
 name: CasinoLiric
 version: '${version}'
 main: liric.casino.CasinoPlugin
-api-version: '1.20'
+api-version: '26.3'
 description: Casino minigames with Vault economy integration
 authors: [Pumpkings]
 depend: [Vault, packetevents]
