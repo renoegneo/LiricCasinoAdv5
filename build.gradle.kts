@@ -14,8 +14,8 @@ buildscript {
 
 plugins {
     java
-    kotlin("jvm") version "2.1.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    kotlin("jvm") version "2.3.20"
+    id("com.github.johnrengelman.shadow") version "9.6.1"
     id("maven-publish")
 }
 
@@ -24,13 +24,13 @@ version = "2.0.4"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
 kotlin {
     compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21)
+        jvmTarget.set(JvmTarget.JVM_25)
     }
 }
 
@@ -49,8 +49,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
-    implementation("dev.triumphteam:triumph-gui:3.1.13")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.+")
+    implementation("dev.triumphteam:triumph-gui-paper:3.1.13")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude(group = "org.bukkit", module = "bukkit")
     }
@@ -80,8 +80,8 @@ tasks {
 
     withType<JavaCompile> {
         options.encoding = "UTF-8"
-        sourceCompatibility = "21"
-        targetCompatibility = "21"
+        sourceCompatibility = "25"
+        targetCompatibility = "25"
     }
 
     processResources {
