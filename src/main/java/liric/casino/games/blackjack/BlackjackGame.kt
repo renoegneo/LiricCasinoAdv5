@@ -10,6 +10,7 @@ import org.bukkit.Sound
 import org.bukkit.entity.Player
 
 enum class GameStatus { PLAYER_TURN, DEALER_TURN, FINISHED }
+enum class StartupRefundResult { REFUNDED, ALREADY_SETTLED, FAILED }
 
 class BlackjackSession(
     plugin: CasinoPlugin, 
@@ -36,7 +37,7 @@ class BlackjackSession(
 
         if (playerScore == 21) {
             status = GameStatus.FINISHED
-            val gui = buildGui()
+            val gui = buildGui(rows = 6)
             gui.disableAllInteractions().disableItemTake().disableItemSwap().disableItemDrop().disableItemPlace()
             
             if (dealerScore == 21) {
@@ -44,15 +45,13 @@ class BlackjackSession(
             } else {
                 endGame(gui, "NATURAL BLACKJACK!", betAmount * 2.5)
             }
-            setupItems(gui)
             gui.open(player)
             player.playSound(player.location, Sound.ITEM_BOOK_PAGE_TURN, 1f, 1f)
             return
         }
 
-        val gui = buildGui()
+        val gui = buildGui(rows = 6)
         gui.disableAllInteractions().disableItemTake().disableItemSwap().disableItemDrop().disableItemPlace()
-        setupItems(gui)
         gui.open(player)
         player.playSound(player.location, Sound.ITEM_BOOK_PAGE_TURN, 1f, 1f)
     }
@@ -233,10 +232,26 @@ class BlackjackSession(
         }
     }
 
+    fun refundOnStartupFailure(): StartupRefundResult {
+        if (settled) return StartupRefundResult.ALREADY_SETTLED
+        val refunded = plugin.economyManager.depositPlayer(player, betAmount)?.transactionSuccess() == true
+        if (!refunded) {
+            plugin.logger.severe("Failed to refund blackjack bet $betAmount to ${player.name} after game startup failed.")
+            return StartupRefundResult.FAILED
+        }
+        settled = true
+        plugin.blackjackManager.unregisterSession(player.uniqueId)
+        return StartupRefundResult.REFUNDED
+    }
+
     fun refundOnShutdown() {
         if (settled) return
+        if (plugin.economyManager.depositPlayer(player, betAmount)?.transactionSuccess() != true) {
+            plugin.logger.severe("Failed to refund blackjack bet $betAmount to ${player.name} during shutdown.")
+            return
+        }
         settled = true
-        plugin.economyManager.depositPlayer(player, betAmount)
+        plugin.blackjackManager.unregisterSession(player.uniqueId)
     }
 
     fun markAbandoned() {

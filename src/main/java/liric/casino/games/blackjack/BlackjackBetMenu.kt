@@ -10,6 +10,7 @@ import org.bukkit.Material
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemFlag
+import java.util.logging.Level
 import kotlin.math.min
 
 class BlackjackBetMenu(
@@ -83,14 +84,28 @@ class BlackjackBetMenu(
                     gui.close(player)
                     return@asGuiItem
                 }
-                if (plugin.economyManager.withdrawPlayer(player, currentBet)?.transactionSuccess() == true) {
-                    plugin.statsManager.recordGameUse(player.uniqueId, "blackjack")
-                    if (isMultiplayer) {
+                if (isMultiplayer) {
+                    if (plugin.blackjackMultiGame.addPlayer(player, currentBet)) {
                         gui.close(player)
-                        plugin.blackjackMultiGame.addPlayer(player, currentBet)
-                    } else {
-                        BlackjackSession(plugin, player, currentBet).start()
+                        plugin.statsManager.recordGameUse(player.uniqueId, "blackjack")
                     }
+                } else if (plugin.economyManager.withdrawPlayer(player, currentBet)?.transactionSuccess() == true) {
+                    val session = BlackjackSession(plugin, player, currentBet)
+                    try {
+                        session.start()
+                    } catch (exception: Exception) {
+                        plugin.logger.log(Level.SEVERE, "Failed to start blackjack for ${player.name}.", exception)
+                        when (session.refundOnStartupFailure()) {
+                            StartupRefundResult.REFUNDED ->
+                                player.sendMessage(plugin.format("<red>Blackjack could not start. Your bet was refunded."))
+                            StartupRefundResult.ALREADY_SETTLED ->
+                                player.sendMessage(plugin.format("<red>Blackjack failed after settlement. Contact staff if the payout is missing."))
+                            StartupRefundResult.FAILED ->
+                                player.sendMessage(plugin.format("<red>Blackjack could not start and the refund failed. Please contact staff."))
+                        }
+                        return@asGuiItem
+                    }
+                    plugin.statsManager.recordGameUse(player.uniqueId, "blackjack")
                 } else {
                     player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
                     player.sendMessage(msg("blackjack.no-funds"))

@@ -20,7 +20,7 @@ plugins {
 }
 
 group = "liric.mistaken" // Actualizado a tu nuevo package
-version = "2.0.5"
+version = "2.0.7"
 
 java {
     toolchain {
@@ -123,6 +123,11 @@ tasks.register("verifyPluginJar") {
         }
         check(!entries.matching { include("org/mariadb/jdbc/Driver.class") }.isEmpty) {
             "MariaDB JDBC driver is missing from ${jarFile.name}"
+        }
+        check(!entries.matching {
+            include("liric/mistaken/libs/gui/builder/item/BukkitNameLoreHandler.class")
+        }.isEmpty) {
+            "Paper-compatible GUI item metadata handler is missing from ${jarFile.name}"
         }
     }
 }

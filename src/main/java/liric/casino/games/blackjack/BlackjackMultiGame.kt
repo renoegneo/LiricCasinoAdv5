@@ -19,20 +19,26 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
     val activePlayers = mutableMapOf<UUID, Double>()
     private var countdownTask: Runnable? = null
 
-    fun addPlayer(player: Player, betAmount: Double) {
+    fun addPlayer(player: Player, betAmount: Double): Boolean {
         if (state == MultiGameState.PLAYING) {
             player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>The multiplayer game is already in progress. Wait for it to finish."))
-            return
+            return false
         }
 
         if (activePlayers.size >= maxPlayers) {
             player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>The table is full."))
-            return
+            return false
         }
 
         if (activePlayers.containsKey(player.uniqueId)) {
             player.sendMessage(plugin.format("<#FF0000>CASINO</#FF0000> <gray>» <red>You are already at the table."))
-            return
+            return false
+        }
+
+        if (plugin.economyManager.withdrawPlayer(player, betAmount)?.transactionSuccess() != true) {
+            player.sendMessage(plugin.messages.get("blackjack.no-funds"))
+            player.playSound(player.location, Sound.ENTITY_VILLAGER_NO, 1f, 1f)
+            return false
         }
 
         activePlayers[player.uniqueId] = betAmount
@@ -46,6 +52,7 @@ class BlackjackMultiGame(private val plugin: CasinoPlugin) {
 
             countdownSeconds = 2
         }
+        return true
     }
 
 

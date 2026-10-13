@@ -13,10 +13,10 @@ abstract class BaseMenu(val plugin: CasinoPlugin, val configName: String) {
      * Builds and initializes a Gui based on the config file.
      * Automatically applies decorations.
      */
-    protected fun buildGui(): Gui {
+    protected fun buildGui(rows: Int = config.getInt("rows", 3)): Gui {
         val gui = Gui.gui()
             .title(plugin.format(config.getString("title", "Menu")))
-            .rows(config.getInt("rows", 3))
+            .rows(rows)
             .create()
 
         // Apply background decorations if defined
