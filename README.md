@@ -56,7 +56,7 @@ You can use the main command `/casino` or direct shortcuts for each game.
 1.  Download the `CasinoLiric.jar` file.
 2.  Drop it into your server's `/plugins/` folder.
 3.  Make sure **Vault** and your economy plugin are installed and running.
-4.  Start or restart your server (versions 1.20.x - 1.21.x).
+4.  Start or restart your server (version 26.3 is the only tested).
 5.  Done! Use `/casino <game> setup` to place the physical games in your world and configure everything to your liking inside the `plugins/CasinoLiric/` folder.
 
 > CasinoLiric currently targets Paper/Spigot. Folia startup is rejected until all game operations are region-thread safe.
